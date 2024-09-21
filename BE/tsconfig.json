@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "lib" : ["es6", "dom"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true
+  }
+}
