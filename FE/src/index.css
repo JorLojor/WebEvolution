@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scrollbar-thin::-webkit-scrollbar {
+    width: 4px; /* Adjust the width as needed */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent; /* Make the track transparent */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: #4A5568; /* Customize scrollbar thumb color */
+    border-radius: 10px; /* Round the edges */
+}
