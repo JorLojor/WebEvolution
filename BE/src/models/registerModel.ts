@@ -1,5 +1,6 @@
 import { DBconnection } from '../config/db';
 import jsonwebtoken from 'jsonwebtoken';
+import {generateID} from '../utils/generateID'
 import env from 'dotenv'; env.config();
 
 export interface Register {
@@ -19,19 +20,21 @@ export interface Register {
 }
 
 export const createRegister = async (newRegister: Register): Promise<number> => {
-    const { Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba } = newRegister;
+    const {RegistrationID, Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba } = newRegister;
+
+
 
     await DBconnection.query(
         `INSERT INTO Register 
-            (Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, Status_Registrasi, token) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba,'0', '']
+            (RegistrationID,Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, Status_Registrasi, token) 
+            VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [RegistrationID, Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, 0 , '']
     );
 
     // ngebuat table Team dengan RegistrationID yang sama dengan RegistrationID yang baru diinsert
     await DBconnection.query(
-        'INSERT INTO Team (RegistrationID) VALUES (?)',
-        [newRegister.RegistrationID]
+        `INSERT INTO Team (TeamID,RegistrationID,Nama_Anggota1,NIM_Anggota1) VALUES (?,?,?,?)`,
+        [generateID(),newRegister.RegistrationID,Nama,Nomor_Induk_Mahasiswa]
     );
 
     // pengondisian Pilihan_Lomba
@@ -54,16 +57,16 @@ export const createRegister = async (newRegister: Register): Promise<number> => 
     }
     if (Competitions) {
         await DBconnection.query(
-            'INSERT INTO Competitions (RegistrationID, Pernyataan_Origalitas, Proposal, Dokumen_Substansi, title) VALUES (?, ?, ?)',
-            [newRegister.RegistrationID, '', '','', Competitions]
+            'INSERT INTO Competitions (CompetitionsID, RegistrationID, Pernyataan_Origalitas, Proposal, Dokumen_Substansi, title) VALUES (?, ?, ?,?, ?, ?)',
+            [generateID(),newRegister.RegistrationID, '', '','', Competitions]
         );
     }
     // ngbuat table Administrative dengan RegistrationID yang sama dengan RegistrationID yang baru diinsert
     await DBconnection.query(
         `INSERT INTO Administrative 
-            (RegistrationID, Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran)
-            VALUES (?, '', '', '')`,
-        [newRegister.RegistrationID]
+            (AdministrativeID ,RegistrationID, Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran)
+            VALUES (?, ?, ?, ?, ?)`,
+        [generateID(),newRegister.RegistrationID,'', '', '']
     );
 
     return 201;

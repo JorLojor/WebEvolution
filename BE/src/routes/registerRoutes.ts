@@ -11,8 +11,12 @@ const router = Router();
 
 router.get('/', getAllRegisterController);
 router.get('/:id', getSingleRegisterController);
-router.post('/', createRegisterController);
+router.post('/', createRegisterController); // http://localhost:3987/api/register
 router.put('/:id', updateRegisterController);
 router.delete('/:id', deleteRegisterController);
 
 export default router;
+
+
+
+

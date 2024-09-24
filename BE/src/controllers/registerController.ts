@@ -8,24 +8,8 @@ import {
     login,
     logout
 } from '../models/registerModel';
-import { log } from 'console';
 
-
-
-export const getSingleRegisterController = async (req: Request, res: Response) => {
-    try {
-        const { id } = req.params;  
-        const singleRegister = await getSingleRegister(Number(id));  // Pastikan id adalah number
-        if (singleRegister) {
-            res.json(singleRegister);
-        } else {
-            res.status(404).json({ message: "Register not found" });
-        }
-    } catch (error) {
-        console.error(error, "\n   backend error broo bagian register controller");
-        res.status(500).json({ message: "backend error broo bagian register controller" });
-    }
-}
+import {generateID} from '../utils/generateID';
 
 //login controller 
 export const loginRegisterController = async (req: Request, res: Response) => {
@@ -67,11 +51,43 @@ export const logoutRegisterController = async (req: Request, res: Response) => {
     }
 };
 
+export const createRegisterController = async (req: Request, res: Response) => {
+    try {
+        const { Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba } = req.body;
+        const RegistrationID = generateID();
+        const newRegister: any  = { RegistrationID,Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba };
+        
+        const result = await createRegister(newRegister);
+        if (result === 201) {
+            // send email disini
 
 
+            //
+            res.status(201).json({code: 201, message: "Register created successfully" });
+        } else {
+            res.status(400).json({code: 400, message: "Register failed to create" });
+        }
+    } catch (error) {
+        console.error(error, "\n   backend error broo bagian register controller");
+        res.status(500).json({code: 500, message: "backend error broo bagian register controller" });
+    }
+}
 
 
-
+export const getSingleRegisterController = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;  
+        const singleRegister = await getSingleRegister(Number(id));  // Pastikan id adalah number
+        if (singleRegister) {
+            res.json(singleRegister);
+        } else {
+            res.status(404).json({ message: "Register not found" });
+        }
+    } catch (error) {
+        console.error(error, "\n   backend error broo bagian register controller");
+        res.status(500).json({ message: "backend error broo bagian register controller" });
+    }
+}
 
 
 
@@ -79,16 +95,6 @@ export const getAllRegisterController = async (req: Request, res: Response) => {
     try {
         const dataRegister = await getAllRegisters();
         res.json(dataRegister);
-    } catch (error) {
-        console.error(error, "\n   backend error broo bagian register controller");
-        res.status(500).json({ message: "backend error broo bagian register controller" });
-    }
-}
-export const createRegisterController = async (req: Request, res: Response) => {
-    try {
-        const newRegister = req.body;  
-        await createRegister(newRegister);
-        res.status(201).json({ message: "Register created successfully" });
     } catch (error) {
         console.error(error, "\n   backend error broo bagian register controller");
         res.status(500).json({ message: "backend error broo bagian register controller" });
