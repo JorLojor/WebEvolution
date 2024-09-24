@@ -76,7 +76,7 @@ function App() {
                 <h2 className="text-4xl md:text-7xl font-semibold pb-4">Shaping the Future</h2>
                 <h2 className="text-4xl md:text-7xl font-semibold">Through Technology</h2>
               </div>
-              <img src={ArrowImage} className="w-[150px] h-[150px] md:w-[150px] md:h-[150px] mt-6" alt="" />
+              <img src={ArrowImage} className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] mt-6" alt="" />
             </div>
             <p className="w-4/5 md:w-1/2 pt-12">EVOLUTION merupakan acara puncak dalam rangkaian acara INTERIUM yang diselenggakan oleh Himpunan Mahasiswa Teknologi Informasi Telkom University. </p>
             <p className="w-4/5 md:w-1/2 pt-8">Dengan tema "Shaping the Future Through Technology", Evolution mengajak para peserta untuk mengembangkan dan menyajikan ide-ide inovatif yang berorientasi pada masa depan.</p>
