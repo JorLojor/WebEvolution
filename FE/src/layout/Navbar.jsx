@@ -35,8 +35,8 @@ const Navbar = () => {
                             <p className="py-2">Terms</p>
                             <p className="py-2">FAQ</p>
                             <div className="flex flex-col">
-                                <p className="py-2">Login</p>
-                                <p className="py-2">Register</p>
+                                <p className="py-2 text-center md:text-left">Login</p>
+                                <p className="py-2 text-center md:text-left">Register</p>
                             </div>
                         </div>
                     )}
