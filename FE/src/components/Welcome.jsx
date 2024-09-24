@@ -26,28 +26,28 @@ const Welcome = () => {
                     </div>
                     <div className="flex  justify-center ">
                         <div className="flex-wrap w-full justify-center">
-                            <div className="w-[200px] p-2 h-[200px] my-2 flex justify-center">
+                            <div className="w-[150px] p-2 h-[150px] my-2 flex justify-center">
                                 <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit">Get Started</button>
                             </div>
-                            <div className="w-[200px] p-2 h-[200px] my-2">
-                                <img className="w-[200px] h-[200px]" src={BusinessPlan} alt="Logo" />
+                            <div className="w-[150px] p-2 h-[150px] my-2">
+                                <img className="w-[150px] h-[150px]" src={BusinessPlan} alt="Logo" />
                             </div>
-                            <div className="w-[200px] p-2 h-[200px] my-2">
-                                <img className="w-[200px] h-[200px]" src={Web} alt="Logo" />
+                            <div className="w-[150px] p-2 h-[150px] my-2">
+                                <img className="w-[150px] h-[150px]" src={Web} alt="Logo" />
                             </div>
                         </div>
                         <div className="flex-wrap w-full mt-1 justify-center">
-                            <div className="w-[200px] p-1 my-2 h-[200px] bg-500">
-                                <img className="w-[200px] h-[200px]" src={Poster} alt="Logo" />
+                            <div className="w-[150px] p-1 my-2 h-[150px] bg-500">
+                                <img className="w-[150px] h-[150px]" src={Poster} alt="Logo" />
                             </div>
-                            <div className="w-[200px] p-1 my-2 h-[200px]">
-                                <img className="w-[200px] h-[200px]" src={Ux} alt="Logo" />
+                            <div className="w-[150px] p-1 my-2 h-[150px]">
+                                <img className="w-[150px] h-[150px]" src={Ux} alt="Logo" />
                             </div>
-                            <div className="w-[200px] p-1 my-2 h-[200px]">
-                                <img className="w-[200px] h-[200px]" src={ArrowImage} alt="Logo" />
+                            <div className="w-[150px] p-1 my-2 h-[150px]">
+                                <img className="w-[150px] h-[150px]" src={ArrowImage} alt="Logo" />
                             </div>
-                            <div className="w-[200px] p-1 my-2 h-[200px]">
-                                <img className="w-[200px] h-[200px]" src={Lines} alt="Logo" />
+                            <div className="w-[150px] p-1 my-2 h-[150px]">
+                                <img className="w-[150px] h-[150px]" src={Lines} alt="Logo" />
                             </div>
                         </div>
                     </div>
