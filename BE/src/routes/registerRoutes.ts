@@ -5,7 +5,8 @@ import {
     createRegisterController, 
     updateRegisterController, 
     deleteRegisterController,
-    loginRegisterController
+    loginRegisterController,
+    logoutRegisterController
 } from '../controllers/registerController';
 
 const router = Router();
@@ -18,5 +19,6 @@ router.delete('/:id', deleteRegisterController);
 //auth
 router.post('/', createRegisterController); // http://localhost:3987/api/register
 router.post('/login', loginRegisterController); // http://localhost:3987/api/register/login
+router.post('/logout', logoutRegisterController); // http://localhost:3987/api/register/logout
 
 export default router;

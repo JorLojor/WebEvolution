@@ -8,7 +8,7 @@ import {
     login,
     logout
 } from '../models/registerModel';
-
+import jwt from 'jsonwebtoken';
 import {generateID} from '../utils/generateID';
 
 //login controller 
@@ -36,27 +36,38 @@ export const loginRegisterController = async (req: Request, res: Response) => {
     }
 };
 
-
-//logout controller
+// Logout controller
 export const logoutRegisterController = async (req: Request, res: Response) => {
     try {
         const authHeader = req.headers.authorization;
+
+        // Cek apakah token ada dan valid
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ message: 'Token tidak ditemukan atau tidak valid' });
         }
-        const token = authHeader.split(" ")[1];
-        const RegistrationID = parseInt(token); 
 
-        if (isNaN(RegistrationID)) {
+        const token = authHeader.split(" ")[1]; // Mendapatkan token dari header
+
+        // Verifikasi token menggunakan secret key
+        const decoded = jwt.verify(token, process.env.SECRET_KEY as string) as { RegistrationID: number };
+
+        if (!decoded || !decoded.RegistrationID) {
             return res.status(400).json({ message: 'Token tidak valid' });
         }
+
+        const RegistrationID = decoded.RegistrationID;
+
+        // Logout (set token di database menjadi null)
         await logout(RegistrationID);
+
         res.status(200).json({ message: "Logout berhasil" });
     } catch (error) {
+        // Jika terjadi error saat verifikasi token atau proses lainnya
         console.error(error, "\n   backend error broo bagian register controller logout ");
         res.status(500).json({ message: "backend error broo bagian register controller logout" });
     }
 };
+
 
 export const createRegisterController = async (req: Request, res: Response) => {
     try {
