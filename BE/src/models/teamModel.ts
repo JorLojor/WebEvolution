@@ -11,6 +11,28 @@ export interface Team {
   NIM_Anggota3: number;
 }
 
+export const addMemberTeam = async (RegistrationID: number, newDataTeam: Partial<Team>): Promise<Team | null> => {
+    const { Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3 } = newDataTeam;
+
+    const [result]: any = await DBconnection.query(
+        `UPDATE Team 
+        SET Nama_Anggota2 = ?, NIM_Anggota2 = ?, Nama_Anggota3 = ?, NIM_Anggota3 = ?
+        WHERE RegistrationID = ?`,
+        [Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3, RegistrationID]
+    );
+
+    if (result.affectedRows > 0) {
+        const [updatedTeam]: any = await DBconnection.query(
+            'SELECT * FROM Team WHERE RegistrationID = ?',
+            [RegistrationID]
+        );
+        return updatedTeam[0] as Team;
+    }
+    return null;
+};
+
+
+
 export const getAllTeams = async (): Promise<Team[]> => {
   const [dataTeams] = await DBconnection.query('SELECT * FROM Team');
   return dataTeams as Team[];
@@ -29,21 +51,3 @@ export const getOneTeam = async (TeamID: number): Promise<Team | null> => {
 
 
 // create team 
-
-// parameter berupa RegistrationID yang diambil dari tabel Register dan Nama_Anggota1: string; NIM_Anggota1: number; Nama_Anggota2: string; NIM_Anggota2: number;Nama_Anggota3: string; NIM_Anggota3: number;
-// RegistrationID berfungsi untuk mencari data table Team yang akan diisi dengan data baru
-// Nama_Anggota1, NIM_Anggota1, Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3 berfungsi untuk mengisi data table Team
-export const addMemberTeam = async (RegistrationID: number, newDataTeam: Team): Promise<Team | null> => {
-    const {Nama_Anggota1, NIM_Anggota1, Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3} = newDataTeam;
-    await DBconnection.query(
-        `INSERT INTO Team 
-            ( Nama_Anggota1, NIM_Anggota1, Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3)
-            VALUES (?, ?, ?, ?, ?, ?, ?) 
-            WHERE RegistrationID = ?`,
-        [Nama_Anggota1, NIM_Anggota1, Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3, RegistrationID]
-    );
-    if (newDataTeam) {
-        return newDataTeam as Team;
-    }
-    return null;
-}
