@@ -1,6 +1,7 @@
 import { useState, useEffect, Fragment } from "react";
 import Navbar from "./layout/Navbar";
 import Timeline from "./components/Timeline";
+import Welcome from "./components/Welcome";
 import BusinessPlan from "./assets/landing/business-plan.webp";
 import ArrowImage from "./assets/landing/arrow.webp";
 import Logo from "./assets/landing/evolution-logo.webp";
@@ -32,45 +33,7 @@ function App() {
           {/* Navbar */}
           <Navbar />
           {/* Welcome */}
-          <div className="flex-wrap flex justify-between items-center mb-8">
-            <div className="text-white">
-              <h1 className="text-lg">Empowering Visionary:</h1>
-              <h1 className="text-3xl font-semibold">Leading Using Technology for</h1>
-              <h1 className="text-3xl font-semibold">Innovative Outcomes and Novelty</h1>
-            </div>
-            <div className="text-white mt-4 md:mt-0 text-left md:text-right">
-              <h1 className="text-3xl font-semibold">Evolution 2024</h1>
-              <h1 className="text-base ">by Telkom University</h1>
-            </div>
-          </div>
-          <div className="flex-wrap flex w-full ">
-            <div className="w-1/5 p-2 h-[200px] flex justify-center">
-              <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit">Get Started</button>
-            </div>
-            <div className="w-1/5 p-2 h-[200px]"></div>
-            <div className="w-1/5 p-2 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={BusinessPlan} alt="Logo" />
-            </div>
-            <div className="w-1/5 p-2 h-[200px]"></div>
-            <div className="w-1/5 p-2 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Web} alt="Logo" />
-            </div>
-          </div>
-          <div className="flex-wrap flex w-full mt-1">
-            <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px] bg-500">
-              <img className="w-[200px] h-[200px]" src={Poster} alt="Logo" />
-            </div>
-            <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Ux} alt="Logo" />
-            </div>
-            <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]"></div>
-            <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={ArrowImage} alt="Logo" />
-            </div>
-            <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Lines} alt="Logo" />
-            </div>
-          </div>
+          <Welcome/>
           {/* Introduction */}
           <div className="px-0 md:px-28 text-white mt-64">
             <div className="flex justify-between items-center">
