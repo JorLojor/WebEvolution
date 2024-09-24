@@ -1,43 +1,70 @@
 import express from 'express';
-import { DBconnection } from './config/db'; 
+import { DBconnection } from './config/db';
 import registerRoutes from './routes/registerRoutes';
-import cors from 'cors';
 import teamRoutes from './routes/teamRoutes';
 import competitionsRoutes from './routes/competitionsRoutes';
 import administrativeRoutes from './routes/administrativeRoutes';
 import finalisRoutes from './routes/finalisRoutes';
+import cors from 'cors';
+import helmet from 'helmet';
+import morgan from 'morgan';
+import dotenv from 'dotenv';
 
-
-
+dotenv.config(); // Load environment variables
 
 const app = express();
-const port = 3987;
+const port = process.env.PORT || 3987; // Use port from .env or default
 
+// Security: Helmet helps you secure your Express apps by setting various HTTP headers.
+app.use(helmet());
+
+// Enable Cross-Origin Resource Sharing (CORS)
 app.use(cors());
 
+// Log HTTP requests using Morgan
+app.use(morgan('dev'));
+
+// Parse incoming JSON requests
 app.use(express.json());
 
-
+// Route configurations
 app.use('/api/register', registerRoutes);
 app.use('/api/team', teamRoutes);
 app.use('/api/competitions', competitionsRoutes);
 app.use('/api/administrative', administrativeRoutes);
 app.use('/api/finalis', finalisRoutes);
 
+// Check DB connection
 const checkDBConnection = async () => {
   try {
     const connection = await DBconnection.getConnection();
-    console.log('nyambung ke MYSQL anjay :) ' + connection.threadId);
-    connection.release(); 
+    console.log('Connected to MySQL database. Connection ID:', connection.threadId);
+    connection.release();
   } catch (error) {
     console.error('Database connection failed:', error);
-    process.exit(1); 
+    process.exit(1); // Exit the process if the DB connection fails
   }
 };
 
+// Centralized error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({
+    message: 'Internal Server Error',
+    error: err.message || 'Something went wrong!'
+  });
+});
 
+// 404 Error handling
+app.use((req, res) => {
+  res.status(404).json({
+    message: 'Route not found'
+  });
+});
+
+// Start the server
 const startServer = async () => {
-  await checkDBConnection();  
+  await checkDBConnection(); // Check database connection before starting the server
   app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
   });
