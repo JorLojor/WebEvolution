@@ -18,14 +18,14 @@ export interface Register {
     token: string;
 }
 
-export const createRegister = async (newRegister: Register): Promise<void> => {
-    const { Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, Status_Registrasi, token } = newRegister;
+export const createRegister = async (newRegister: Register): Promise<number> => {
+    const { Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba } = newRegister;
 
     await DBconnection.query(
         `INSERT INTO Register 
             (Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, Status_Registrasi, token) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        [Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba, Status_Registrasi, token]
+        [Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba,'0', '']
     );
 
     // ngebuat table Team dengan RegistrationID yang sama dengan RegistrationID yang baru diinsert
@@ -35,34 +35,41 @@ export const createRegister = async (newRegister: Register): Promise<void> => {
     );
 
     // pengondisian Pilihan_Lomba
-    let dokumenSubstansi = '';
+    let Competitions = '';
     switch (Pilihan_Lomba) {
         case 'bisnis plan':
-            dokumenSubstansi = 'bisnis plan';
+            Competitions = 'bisnis plan';
             break;
         case 'uiux':
-            dokumenSubstansi = 'uiux';
+            Competitions = 'uiux';
             break;
         case 'web design':
-            dokumenSubstansi = 'web design';
+            Competitions = 'web design';
             break;
         case 'poster infografis':
-            dokumenSubstansi = 'poster infografis';
+            Competitions = 'poster infografis';
             break;
         default:
-            dokumenSubstansi = '';
+            Competitions = '';
     }
-
-    if (dokumenSubstansi) {
+    if (Competitions) {
         await DBconnection.query(
-            'INSERT INTO Competitions (RegistrationID, Pernyataan_Origalitas, Dokumen_Substansi) VALUES (?, ?, ?)',
-            [newRegister.RegistrationID, dokumenSubstansi, dokumenSubstansi]
+            'INSERT INTO Competitions (RegistrationID, Pernyataan_Origalitas, Proposal, Dokumen_Substansi, title) VALUES (?, ?, ?)',
+            [newRegister.RegistrationID, '', '','', Competitions]
         );
     }
+    // ngbuat table Administrative dengan RegistrationID yang sama dengan RegistrationID yang baru diinsert
+    await DBconnection.query(
+        `INSERT INTO Administrative 
+            (RegistrationID, Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran)
+            VALUES (?, '', '', '')`,
+        [newRegister.RegistrationID]
+    );
+
+    return 201;
 };
 
 // login
-
 export const login = async (Email: string, Password: string): Promise<Register | null> => {
     const [dataRegister]: any = await DBconnection.query('SELECT * FROM Register WHERE Email = ? AND Password = ?', [Email, Password]);
     if (dataRegister.length > 0) { // LOGIN NYA BERHASIL
