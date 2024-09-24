@@ -10,6 +10,7 @@ import {
 } from '../models/registerModel';
 import jwt from 'jsonwebtoken';
 import {generateID} from '../utils/generateID';
+import { sendMessage } from './emailController';
 
 //login controller 
 export const loginRegisterController = async (req: Request, res: Response) => {
@@ -77,10 +78,19 @@ export const createRegisterController = async (req: Request, res: Response) => {
         
         const result = await createRegister(newRegister);
         if (result === 201) {
-            // send email disini
-
-
-            //
+            const subject = "Selamat! Anda Telah Teregisterasi Tahap 1";
+            const text = `
+              Halo ${Nama}, \n\n
+              Selamat! Anda telah berhasil menyelesaikan tahap pertama registrasi Lomba IT. Kami sangat senang menyambut antusiasme Anda dalam kompetisi ini.\n\n
+              Untuk melanjutkan ke tahap kedua registrasi, silakan klik link berikut yang telah kami tentukan:\n
+              [Link ke Registrasi Tahap 2]\n\n
+              Semoga sukses dalam perjalanan Anda mengikuti lomba ini. Jangan lewatkan informasi selanjutnya yang akan kami kirimkan kepada Anda. Terima kasih telah berpartisipasi dan kami berharap yang terbaik untuk Anda!\n\n
+              Salam hangat,\n
+              Panitia Lomba IT
+            `;
+      
+            // Send email confirmation via sendMessage
+            await sendMessage.sendEmail(Email, subject, text, res);
             res.status(201).json({code: 201, message: "Register created successfully" });
         } else {
             res.status(400).json({code: 400, message: "Register failed to create" });

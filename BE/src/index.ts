@@ -6,7 +6,6 @@ import teamRoutes from './routes/teamRoutes';
 import competitionsRoutes from './routes/competitionsRoutes';
 import administrativeRoutes from './routes/administrativeRoutes';
 import finalisRoutes from './routes/finalisRoutes';
-import emailRoutes from './routes/emailRoutes';
 
 const app = express();
 const port = 3987;
@@ -21,7 +20,6 @@ app.use('/api/team', teamRoutes);
 app.use('/api/competitions', competitionsRoutes);
 app.use('/api/administrative', administrativeRoutes);
 app.use('/api/finalis', finalisRoutes);
-app.use('/api/email', emailRoutes);
 
 const checkDBConnection = async () => {
   try {
