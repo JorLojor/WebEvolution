@@ -7,8 +7,11 @@ import competitionsRoutes from './routes/competitionsRoutes';
 import administrativeRoutes from './routes/administrativeRoutes';
 import finalisRoutes from './routes/finalisRoutes';
 
+
+
+
 const app = express();
-const port = 3000;
+const port = 3987;
 
 app.use(cors());
 
