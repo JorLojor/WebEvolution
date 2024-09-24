@@ -49,26 +49,26 @@ function App() {
             </div>
             <div className="w-1/5 p-2 h-[200px]"></div>
             <div className="w-1/5 p-2 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={BusinessPlan} alt="" />
+              <img className="w-[200px] h-[200px]" src={BusinessPlan} alt="Logo" />
             </div>
             <div className="w-1/5 p-2 h-[200px]"></div>
             <div className="w-1/5 p-2 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Web} alt="" />
+              <img className="w-[200px] h-[200px]" src={Web} alt="Logo" />
             </div>
           </div>
           <div className="flex-wrap flex w-full mt-1">
             <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px] bg-500">
-              <img className="w-[200px] h-[200px]" src={Poster} alt="" />
+              <img className="w-[200px] h-[200px]" src={Poster} alt="Logo" />
             </div>
             <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Ux} alt="" />
+              <img className="w-[200px] h-[200px]" src={Ux} alt="Logo" />
             </div>
             <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]"></div>
             <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={ArrowImage} alt="" />
+              <img className="w-[200px] h-[200px]" src={ArrowImage} alt="Logo" />
             </div>
             <div className="w-1/5 p-1 mt-0 md:mt-4 h-[200px]">
-              <img className="w-[200px] h-[200px]" src={Lines} alt="" />
+              <img className="w-[200px] h-[200px]" src={Lines} alt="Logo" />
             </div>
           </div>
           {/* Introduction */}
@@ -78,15 +78,42 @@ function App() {
                 <h2 className="text-4xl md:text-7xl font-semibold pb-4">Shaping the Future</h2>
                 <h2 className="text-4xl md:text-7xl font-semibold">Through Technology</h2>
               </div>
-              <img src={ArrowImage} className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] mt-6" alt="" />
+              <img src={ArrowImage} className="w-[100px] h-[100px] md:w-[150px] md:h-[150px] mt-6" alt="Logo" />
             </div>
             <p className="w-full md:w-1/2 pt-12">EVOLUTION merupakan acara puncak dalam rangkaian acara INTERIUM yang diselenggakan oleh Himpunan Mahasiswa Teknologi Informasi Telkom University. </p>
             <p className="w-full md:w-1/2 pt-8">Dengan tema "Shaping the Future Through Technology", Evolution mengajak para peserta untuk mengembangkan dan menyajikan ide-ide inovatif yang berorientasi pada masa depan.</p>
           </div>
           {/* Timeline */}
-          <Timeline/>
+          <Timeline />
           <h1></h1>
           {/* Lomba */}
+          <h1 className="text-center text-white pt-48 pb-12 text-4xl font-bold">Jenis Lomba</h1>
+          <div className="flex-wrap flex items-center justify-center md:justify-between text-black">
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6">
+              <img className="w-[100%] mx-auto" src={BusinessPlan} alt="Logo Lomba" />
+              <p className="pt-4 text-2xl font-semibold">Business Plan</p>
+              <p className="">Mahasiswa</p>
+              <p className="opacity-0">SMA/Sederajat</p>
+            </div>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6">
+              <img className="w-[100%] mx-auto" src={Ux} alt="Logo Lomba" />
+              <p className="pt-4 text-2xl font-semibold">UI/UX</p>
+              <p className="">Mahasiswa</p>
+              <p className="">SMA/Sederajat</p>
+            </div>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6">
+              <img className="w-[100%] mx-auto" src={Web} alt="Logo Lomba" />
+              <p className="pt-4 text-2xl font-semibold">Web Design</p>
+              <p className="">Mahasiswa</p>
+              <p className="opacity-0">SMA/Sederajat</p>
+            </div>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6">
+              <img className="w-[100%] mx-auto" src={Poster} alt="Logo Lomba" />
+              <p className="pt-4 text-2xl font-semibold">Poster Infografis</p>
+              <p className="">SMA/Sederajat</p>
+              <p className="opacity-0">Mahasiswa</p>
+            </div>
+          </div>
           {/* Footer */}
         </div>
       </div>
