@@ -25,7 +25,7 @@ function App() {
 
   return (
     <Fragment>
-      <div className=" bg-black ">
+      <div className=" bg-black pb-48">
         <div className="mx-8 min-h-screen">
           {/* Navbar */}
           <Navbar />
@@ -70,8 +70,22 @@ function App() {
             </div>
           </div>
           {/* Introduction */}
-          <div className="flex"></div>
+          <div className="px-28 text-white mt-64">
+            <div className="flex justify-between">
+              <div>
+                <h2 className="text-7xl font-semibold pb-4">Shaping the Future</h2>
+                <h2 className="text-7xl font-semibold">Through Technology</h2>
+              </div>
+              <img src={ArrowImage} className="w-[150px] h-[150px] mt-6" alt="" />
+            </div>
+            <p className="w-1/2 pt-12">EVOLUTION merupakan acara puncak dalam rangkaian acara INTERIUM yang diselenggakan oleh Himpunan Mahasiswa Teknologi Informasi Telkom University. </p>
+            <p className="w-1/2 pt-8">Dengan tema "Shaping the Future Through Technology", Evolution mengajak para peserta untuk mengembangkan dan menyajikan ide-ide inovatif yang berorientasi pada masa depan.</p>
+          </div>
           {/* Timeline */}
+          <div className="text-white pt-48">
+            <h2 className="px-28 text-7xl font-semibold">Our Timeline</h2>
+          </div>
+          <h1></h1>
           {/* Lomba */}
           {/* Footer */}
         </div>
