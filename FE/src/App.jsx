@@ -1,12 +1,14 @@
 import { useState, useEffect, Fragment } from "react";
 import Navbar from "./layout/Navbar";
-import BusinessPlan from "./assets/landing/business-plan.webp"
-import ArrowImage from "./assets/landing/arrow.webp"
-import Logo from "./assets/landing/evolution-logo.webp"
-import Lines from "./assets/landing/lines.webp"
-import Poster from "./assets/landing/poster.webp"
-import Ux from "./assets/landing/ux.webp"
-import Web from "./assets/landing/web.webp"
+import Timeline from "./components/Timeline";
+import BusinessPlan from "./assets/landing/business-plan.webp";
+import ArrowImage from "./assets/landing/arrow.webp";
+import Logo from "./assets/landing/evolution-logo.webp";
+import Lines from "./assets/landing/lines.webp";
+import Poster from "./assets/landing/poster.webp";
+import Ux from "./assets/landing/ux.webp";
+import Web from "./assets/landing/web.webp";
+
 
 function App() {
   const [isSignin, setIsSignin] = useState(true);
@@ -41,7 +43,7 @@ function App() {
               <h1 className="text-base ">by Telkom University</h1>
             </div>
           </div>
-          <div className="flex-wrap flex w-full">
+          <div className="flex-wrap flex w-full ">
             <div className="w-1/5 p-2 h-[200px] flex justify-center">
               <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit">Get Started</button>
             </div>
@@ -82,9 +84,7 @@ function App() {
             <p className="w-4/5 md:w-1/2 pt-8">Dengan tema "Shaping the Future Through Technology", Evolution mengajak para peserta untuk mengembangkan dan menyajikan ide-ide inovatif yang berorientasi pada masa depan.</p>
           </div>
           {/* Timeline */}
-          <div className="text-white pt-48">
-            <h2 className="px-8 md:px-28 text-7xl font-semibold">Our Timeline</h2>
-          </div>
+          <Timeline/>
           <h1></h1>
           {/* Lomba */}
           {/* Footer */}
