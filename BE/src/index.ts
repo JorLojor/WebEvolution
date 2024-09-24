@@ -13,7 +13,7 @@ import dotenv from 'dotenv';
 dotenv.config(); // Load environment variables
 
 const app = express();
-const port = process.env.PORT || 3987; // Use port from .env or default
+const port = process.env.PORTJORS; // Use port from .env or default
 
 // Security: Helmet helps you secure your Express apps by setting various HTTP headers.
 app.use(helmet());
@@ -47,13 +47,17 @@ const checkDBConnection = async () => {
 };
 
 // Centralized error handling middleware
-app.use((err, req, res, next) => {
+import { Request, Response, NextFunction } from 'express';
+
+// Centralized error handling middleware
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({
     message: 'Internal Server Error',
     error: err.message || 'Something went wrong!'
   });
 });
+
 
 // 404 Error handling
 app.use((req, res) => {
@@ -65,8 +69,8 @@ app.use((req, res) => {
 // Start the server
 const startServer = async () => {
   await checkDBConnection(); // Check database connection before starting the server
-  app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+  app.listen(3987, () => {
+    console.log(`Server running at http://localhost:${3987}`);
   });
 };
 
