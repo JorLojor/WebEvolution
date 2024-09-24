@@ -72,7 +72,7 @@ function App() {
             </div>
           </div>
           {/* Introduction */}
-          <div className="px-8 md:px-28 text-white mt-64">
+          <div className="px-0 md:px-28 text-white mt-64">
             <div className="flex justify-between items-center">
               <div>
                 <h2 className="text-4xl md:text-7xl font-semibold pb-4">Shaping the Future</h2>

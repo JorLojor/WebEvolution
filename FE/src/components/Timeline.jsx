@@ -6,7 +6,7 @@ const Timeline = () => {
         <Fragment >
             {isMobile ?
                 <div className="text-white pt-48">
-                    <h2 className="px-8 md:px-28 text-7xl font-semibold pb-24">Our Timeline</h2>
+                    <h2 className="px-0 md:px-28 text-7xl font-semibold pb-24">Our Timeline</h2>
                     <div className="text-white flex items-center justify-around">
                         <div className="items-end pb-5 ">
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
