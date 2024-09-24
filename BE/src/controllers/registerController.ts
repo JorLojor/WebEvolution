@@ -15,20 +15,27 @@ import {generateID} from '../utils/generateID';
 export const loginRegisterController = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: "Email and password are required" });
+        }
+
         const data = await login(email, password);
+        
         if (data) {
             res.status(200).json({
-                message: "Login success",
-                data: data.token
+                message: "Login successful",
+                data: data.token,
             });
         } else {
             res.status(401).json({ message: "Email or password is incorrect" });
         }
     } catch (error) {
-        console.error(error, "\n   backend error broo bagian register controller login ");
-        res.status(500).json({ message: "backend error broo bagian register controller login " });
+        console.error(error, "\nBackend error during login process.");
+        res.status(500).json({ message: "Internal server error during login process" });
     }
-}
+};
+
 
 //logout controller
 export const logoutRegisterController = async (req: Request, res: Response) => {

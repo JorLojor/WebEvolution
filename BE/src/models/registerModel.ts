@@ -74,16 +74,28 @@ export const createRegister = async (newRegister: Register): Promise<number> => 
 
 // login
 export const login = async (Email: string, Password: string): Promise<Register | null> => {
-    const [dataRegister]: any = await DBconnection.query('SELECT * FROM Register WHERE Email = ? AND Password = ?', [Email, Password]);
-    if (dataRegister.length > 0) { // LOGIN NYA BERHASIL
-        const token = jsonwebtoken.sign({ RegistrationID: dataRegister[0].RegistrationID }, process.env.SECRET_KEY as string);
-        // mengisi token di table Register
-        await DBconnection.query('UPDATE Register SET token = ? WHERE RegistrationID = ?', [token, dataRegister[0].RegistrationID]);
-        return dataRegister[0] as Register;
-    } else {
-        return null;
+    try {
+        const [dataRegister]: any = await DBconnection.query('SELECT * FROM Register WHERE Email = ? AND Password = ?', [Email, Password]);
+
+        if (dataRegister.length > 0) { 
+            const token = jsonwebtoken.sign({ RegistrationID: dataRegister[0].RegistrationID }, process.env.SECRET_KEY as string, { expiresIn: '3h' }); // Token sampe 3 jam
+
+            // ngisi token di table Register
+            await DBconnection.query('UPDATE Register SET token = ? WHERE RegistrationID = ?', [token, dataRegister[0].RegistrationID]);
+
+            // Tambahkan token ke objek yang akan dikembalikan
+            dataRegister[0].token = token;
+
+            return dataRegister[0] as Register;
+        } else {
+            return null; // Email atau password salah
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        throw new Error('Error during login process');
     }
 };
+
 
 // logout
 export const logout = async (RegistrationID: number): Promise<void> => {
