@@ -6,20 +6,20 @@ import CustomAlert from "../components/CustomAlert";
 import CustomConfirm from "../components/CustomConfirm"; 
 import { useDispatch } from "react-redux";
 import { logout } from "../slice/userSlice";
-import Logo from "../assets/logo-full.webp";
-import logoTutup from "../assets/logo-image.webp";
+import Logo from "../assets/landing/evolution-logo.webp";
+import logoTutup from "../assets/landing/evolution-logo.webp";
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from "react-router-dom";
 
-const Sidebar = ({
-    buka,
-    toggleSidebar,
-    setCurrentPage,
-    currentPage,
-}) => {
+const Sidebar = ({}) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [logoutAlert, setLogoutAlert] = useState(false);
     const [dataDropdownOpen, setDataDropdownOpen] = useState(false);
     const [databaseDropdownOpen, setDatabaseDropdownOpen] = useState(false);
+    const [buka, setBuka] = useState(false);
+    const [toggleSidebar, setToggleSidebar] = useState(false);
+    const [currentPage, setCurrentPage] = useState(false);
+    const navigate = useNavigate();
     
     const dispatch = useDispatch();
 
@@ -42,7 +42,8 @@ const Sidebar = ({
             setShowConfirm(true);
         } else {
             setCurrentPage(menu);
-            if (buka) toggleSidebar();
+            setBuka(!buka);
+            setToggleSidebar(!buka);  
         }
     };
 
@@ -53,6 +54,7 @@ const Sidebar = ({
     const toggleDatabaseDropdown = () => {
         setDatabaseDropdownOpen(!databaseDropdownOpen);
     };
+    
 
     return (
         <motion.div
@@ -78,24 +80,40 @@ const Sidebar = ({
                 )}
             </div>
 
-            {/* Menu "Map" */}
+            {/* Menu "Dashboard" */}
             <div
                 className={`button-sidebar flex items-center p-4 mt-8 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage === "Map" ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
-                onClick={() => handleClickMenu("Map")}>
+                onClick={e => (navigate('/dashboard'))}>
                 <FaMap className={`${buka ? "mr-4" : "mx-auto text-base md:text-2xl"}`} />
                 {buka && (
                     <motion.p
                         initial={{ x: -20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 0.5 }}>
-                        Map
+                        Dashboard
+                    </motion.p>
+                )}
+            </div>
+
+            {/* Menu "Team" */}
+            <div
+                className={`button-sidebar flex items-center p-4 mt-8 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage === "Map" ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
+                onClick={e => (navigate('/member'))}>
+                <FaMap className={`${buka ? "mr-4" : "mx-auto text-base md:text-2xl"}`} />
+                {buka && (
+                    <motion.p
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.5 }}>
+                        Team
                     </motion.p>
                 )}
             </div>
 
             {/* Menu "Data" */}
             <div
-                className={`button-sidebar flex items-center p-4 mt-4 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage.startsWith("Data") ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
+                // className={`button-sidebar flex items-center p-4 mt-4 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage.startsWith("Data") ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
+                className={`button-sidebar flex items-center p-4 mt-4 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage==("Data") ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
                 onClick={toggleDataDropdown}>
                 <FaChartBar className={`${buka ? "mr-4" : "mx-auto"} text-base md:text-2xl`} />
                 {buka && (
@@ -135,45 +153,6 @@ const Sidebar = ({
                 )}
             </AnimatePresence>
 
-            {/* Menu "Database" */}
-            <div
-                className={`button-sidebar flex items-center p-4 mt-4 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage.startsWith("Rt") || currentPage.startsWith("Rw") || currentPage.startsWith("Dusun") || currentPage.startsWith("Desa") || currentPage.startsWith("Kecamatan") ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
-                onClick={toggleDatabaseDropdown}>
-                <FaSitemap className={`${buka ? "mr-4" : "mx-auto text-base md:text-2xl"}`} />
-                {buka && (
-                    <motion.div
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="flex items-center w-full justify-between my-1">
-                        <p>Database</p>
-                        {databaseDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
-                    </motion.div>
-                )}
-            </div>
-
-            {/* Dropdown "Database" */}
-            <AnimatePresence>
-                {buka && databaseDropdownOpen && (
-                    <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.5 }}
-                        className="z-0 overflow-x-hidden overflow-y-auto scrollbar-thin mx-8">
-                        {["Rt", "Rw", "Dusun", "Desa", "Kecamatan"].map((item) => (
-                            <div
-                                key={item}
-                                className={`my-1 sub-menu pl-8 p-2 flex items-center justify-start hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage === item ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
-                                onClick={() => handleClickMenu(item)}>
-                                <FaDatabase className="mr-2" />
-                                <p>{item}</p>
-                            </div>
-                        ))}
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
             {/* Menu "Sign Out" */}
             <div
                 className={`button-sidebar flex items-center p-4 mt-4 ${buka ? "ml-6" : "mx-auto"} text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${currentPage === "Sign Out" ? "bg-gray-700 text-white" : "text-[#BFBFBF]"}`}
@@ -194,13 +173,6 @@ const Sidebar = ({
             {logoutAlert && <CustomAlert message="Anda telah keluar" onClose={handleCloseAlert} />}
         </motion.div>
     );
-};
-
-Sidebar.propTypes = {
-    buka: propTypes.bool.isRequired,
-    toggleSidebar: propTypes.func.isRequired,
-    setCurrentPage: propTypes.func.isRequired,
-    currentPage: propTypes.string.isRequired,
 };
 
 export default Sidebar;

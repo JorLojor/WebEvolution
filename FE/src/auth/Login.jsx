@@ -22,7 +22,7 @@ const Login = () => {
 
         if (id === 'admin' && password === 'admin123') {
             dispatch(login({ id, role: 'admin' }));
-            navigate('/');
+            navigate('/dashboard');
         } else {
             setError('ID atau Password salah. Silakan coba lagi.');
         }
