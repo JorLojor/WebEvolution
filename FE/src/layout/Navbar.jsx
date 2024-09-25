@@ -1,9 +1,11 @@
 import { Fragment, useState } from "react";
 import { isMobile } from "react-device-detect";
 import Logo from "../assets/landing/evolution-logo.webp";
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -12,21 +14,17 @@ const Navbar = () => {
     return (
         <Fragment>
             {isMobile ? (
-                // Mobile View
                 <div>
                     <div className="flex items-center justify-between text-white py-5">
-                        {/* Logo */}
                         <img src={Logo} className="w-[30px] h-[30px]" alt="Logo" />
-                        {/* Hamburger Menu */}
                         <div className="cursor-pointer" onClick={toggleMenu}>
                             {isOpen ? (
-                                <span className="text-3xl">✕</span> // "X" icon when open
+                                <span className="text-3xl">✕</span> 
                             ) : (
-                                <span className="text-3xl">☰</span> // Hamburger icon when closed
+                                <span className="text-3xl">☰</span> 
                             )}
                         </div>
                     </div>
-                    {/* Menu Items (visible when isOpen is true) */}
                     {isOpen && (
                         <div className="flex flex-col items-center bg-gray-900 text-white py-4">
                             <p className="py-2">About</p>
@@ -35,19 +33,16 @@ const Navbar = () => {
                             <p className="py-2">Terms</p>
                             <p className="py-2">FAQ</p>
                             <div className="flex flex-col">
-                                <p className="py-2 text-center md:text-left">Login</p>
-                                <p className="py-2 text-center md:text-left">Register</p>
+                                <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={e => (navigate('/login'))}>Login</p>
+                                <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={e => (navigate('/register'))}>Register</p>
                             </div>
                         </div>
                     )}
                 </div>
             ) : (
-                // Desktop View
                 <div className="flex items-center">
                     <img src={Logo} className="w-[30px] h-[30px]" alt="Logo" />
                     <div className="flex items-center justify-between w-full text-white py-5">
-                        {/* Logo */}
-                        {/* Menu Items */}
                         <div className="flex items-center">
                             <p className="pl-6">About</p>
                             <p className="pl-6">Competitions</p>
@@ -55,10 +50,9 @@ const Navbar = () => {
                             <p className="pl-6">Terms</p>
                             <p className="pl-6">FAQ</p>
                         </div>
-                        {/* Login/Register Section */}
                         <div className="flex items-center">
-                            <p className="pl-8">Login</p>
-                            <p className="pl-8">Register</p>
+                            <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/login'))}>Login</p>
+                            <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/register'))}>Register</p>
                         </div>
                     </div>
                 </div>
