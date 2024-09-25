@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import BusinessPlan from "../assets/landing/business-plan.webp";
 import ArrowImage from "../assets/landing/arrow.webp";
-import Logo from "../assets/landing/evolution-logo.webp";
 import Lines from "../assets/landing/lines.webp";
 import Poster from "../assets/landing/poster.webp";
 import Ux from "../assets/landing/ux.webp";
