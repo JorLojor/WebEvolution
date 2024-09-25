@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash, FaUser, FaLock, FaAddressCard, FaMapMarked } from 'r
 import { FaUserGroup, FaFileContract } from "react-icons/fa6";
 import { HiAcademicCap } from "react-icons/hi2";
 import { MdEmail } from "react-icons/md";
+import { isMobile } from 'react-device-detect';
 
 
 const Register = () => {
@@ -54,10 +55,10 @@ const Register = () => {
     return (
         <Fragment>
             <div className="flex items-center">
-                <div className="w-1/2 min-h-screen py-5 flex-1">
+                <div className={`${isMobile ? 'w-screen px-4 flex flex-col justify-center items-center min-h-screen py-5' : 'w-1/2 min-h-screen py-5 flex-1'}`}>
                     <h1 className="text-center text-3xl font-semibold">Selamat Datang</h1>
                     <h1 className="text-center text-lg">Silahkan masukan detail akun anda untuk mendaftar</h1>
-                    <div className="flex justify-center items-center">
+                    <div className="flex justify-center items-center w-full">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaUser className="ml-4" />
                             <input
@@ -71,7 +72,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaUserGroup className="ml-4" />
                             <input
@@ -85,7 +86,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <HiAcademicCap className="ml-4" />
                             <input
@@ -99,7 +100,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaAddressCard className="ml-4" />
                             <input
@@ -113,7 +114,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <MdEmail className="ml-4" />
                             <input
@@ -127,7 +128,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaMapMarked className="ml-4" />
                             <input
@@ -141,7 +142,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaMapMarked className="ml-4" />
                             <input
@@ -155,7 +156,7 @@ const Register = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaFileContract className="ml-4" />
                             <select
@@ -173,7 +174,7 @@ const Register = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
                             <FaLock className="ml-4" />
                             <input
@@ -193,7 +194,7 @@ const Register = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-2">
+                    <div className="flex justify-center items-center w-full mt-2">
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
                             <FaLock className="ml-4" />
                             <input
@@ -222,7 +223,7 @@ const Register = () => {
                         </button>
                     </div>
                 </div>
-                <div className="w-1/2 flex-1 min-h-screen bg-black flex justify-center items-center">
+                <div className={`${isMobile ? 'hidden' : 'w-1/2'} flex-1 min-h-screen bg-black flex justify-center items-center`}>
                     <img src={Logo} alt="Logo" className="w-1/2" />
                 </div>
             </div>

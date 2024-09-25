@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../slice/userSlice';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash, FaUser, FaLock } from 'react-icons/fa';
+import { isMobile } from 'react-device-detect';
 
 const Login = () => {
     const [id, setId] = useState('');
@@ -34,14 +35,14 @@ const Login = () => {
     return (
         <Fragment>
             <div className="flex items-center ">
-                <div className="w-1/2 h-screen bg-black flex justify-center items-center">
+                <div className={`${isMobile ? 'hidden' : 'w-1/2'} h-screen bg-black flex justify-center items-center`}>
                     <img src={Logo} alt="Logo" className="w-1/2" />
                 </div>
-                <div className="w-1/2">
+                <div className={`${isMobile ? 'w-screen px-4 flex flex-col justify-center items-center min-h-screen' : 'w-1/2'}`}>
                     <h1 className="text-center text-3xl font-semibold">Selamat Datang</h1>
                     <h1 className="text-center text-lg">Silahkan masukan detail akun anda untuk mengakses dashboard</h1>
-                    <div className="flex justify-center items-center mt-6">
-                        <div className="flex items-center h-[80px] w-[80%] border-2 border-gray-300 rounded-[10px]">
+                    <div className="flex justify-center items-center mt-6 w-full">
+                        <div className={`flex items-center h-[80px] ${isMobile ? 'w-[90%]' : 'w-[80%]'} border-2 border-gray-300 rounded-[10px] relative`}>
                             <FaUser className="ml-4" />
                             <input
                                 className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
@@ -54,8 +55,8 @@ const Login = () => {
                             />
                         </div>
                     </div>
-                    <div className="flex justify-center items-center mt-6">
-                        <div className="flex items-center h-[80px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
+                    <div className="flex justify-center items-center mt-6 w-full">
+                        <div className={`flex items-center h-[80px] ${isMobile ? 'w-[90%]' : 'w-[80%]'} border-2 border-gray-300 rounded-[10px] relative`}>
                             <FaLock className="ml-4" />
                             <input
                                 className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${password ? 'text-black' : 'text-[#616161]'
