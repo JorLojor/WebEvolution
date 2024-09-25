@@ -156,7 +156,7 @@ const Login = () => {
                               Belum Mempunyai Akun?{" "}
                               <span
                                    className="text-blue-500"
-                                   onClick={(e) => navigate("/register")}>
+                                   onClick={() => navigate("/register")}>
                                    Daftar
                               </span>
                          </p>
