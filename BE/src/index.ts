@@ -7,9 +7,6 @@ import competitionsRoutes from './routes/competitionsRoutes';
 import administrativeRoutes from './routes/administrativeRoutes';
 import finalisRoutes from './routes/finalisRoutes';
 
-
-
-
 const app = express();
 const port = 3987;
 
