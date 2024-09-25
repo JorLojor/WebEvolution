@@ -6,8 +6,12 @@ import Poster from "../assets/landing/poster.webp";
 import Ux from "../assets/landing/ux.webp";
 import Web from "../assets/landing/web.webp";
 import { isMobile } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
+
 
 const Welcome = () => {
+    const navigate = useNavigate();
+
     return (
         <Fragment>
             {isMobile ?
@@ -26,7 +30,7 @@ const Welcome = () => {
                     <div className="flex  justify-center ">
                         <div className="flex-wrap w-full justify-center">
                             <div className="w-[150px] p-2 h-[150px] my-2 flex justify-center">
-                                <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit">Get Started</button>
+                                <button className="relative -top-4 bg-orange-300 px-10 py-2 h-fit text-lg font-semibold" onClick={e => (navigate('/dashboard'))}>Get Started</button>
                             </div>
                             <div className="w-[150px] p-2 h-[150px] my-2">
                                 <img className="w-[150px] h-[150px]" src={BusinessPlan} alt="Logo" />
@@ -66,7 +70,7 @@ const Welcome = () => {
                     </div>
                     <div className="flex-wrap flex w-full ">
                         <div className="w-1/5 p-2 h-[200px] flex justify-center">
-                            <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit">Get Started</button>
+                            <button className="relative -top-4 bg-orange-300 px-10 py-2 flex h-fit text-lg font-semibold" onClick={e => (navigate('/dashboard'))}>Get Started</button>
                         </div>
                         <div className="w-1/5 p-2 h-[200px]"></div>
                         <div className="w-1/5 p-2 h-[200px]">
