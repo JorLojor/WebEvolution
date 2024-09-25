@@ -74,38 +74,6 @@ const Timeline = () => {
                 :
                 <div className="text-white pt-48">
                     <h2 className="px-8 md:px-28 text-7xl font-semibold pb-24">Our Timeline</h2>
-                    <div className="flex items-end pb-5">
-                        <div className="w-[14%] text-center "></div>
-                        <div className="w-[14%] text-center ">
-                            <h3 className="text-2xl font-bold">Normal</h3>
-                            <h3 className="text-2xl font-bold">Registration</h3>
-                            <p className="text-xl pt-2">28 September - 18 October 2024</p>
-
-                        </div>
-                        <div className="w-[14%] text-center "></div>
-                        <div className="w-[14%] text-center ">
-                            <h3 className="text-2xl font-bold">Submission</h3>
-                            <p className="text-xl pt-2">19 October - 25 October 2024</p>
-
-                        </div>
-                        <div className="w-[14%] text-center "></div>
-                        <div className="w-[14%] text-center ">
-                            <h3 className="text-2xl font-bold">Final</h3>
-                            <h3 className="text-2xl font-bold">Presentation</h3>
-                            <p className="text-xl pt-2">5 November 2024</p>
-
-                        </div>
-                        <div className="w-[14%] text-center "></div>
-                    </div>
-                    <div className="w-full flex border-b-4 border-white">
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
-                    </div>
                     <div className="flex pt-5">
                         <div className="w-[14%] text-center ">
                             <h3 className="text-2xl font-bold">Early</h3>
@@ -130,6 +98,38 @@ const Timeline = () => {
                             <h3 className="text-2xl font-bold">Announcement</h3>
                             <p className="text-xl pt-2">7 November 2024</p>
                         </div>
+                    </div>
+                    <div className="w-full flex border-b-4 border-white">
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                        <div className="w-[14%]"><div className="rounded-full w-[20px] h-[20px] bg-white mx-auto -mb-3"></div></div>
+                    </div>
+                    <div className="flex items-end pb-5">
+                        <div className="w-[14%] text-center "></div>
+                        <div className="w-[14%] text-center ">
+                            <h3 className="text-2xl font-bold">Normal</h3>
+                            <h3 className="text-2xl font-bold">Registration</h3>
+                            <p className="text-xl pt-2">28 September - 18 October 2024</p>
+
+                        </div>
+                        <div className="w-[14%] text-center "></div>
+                        <div className="w-[14%] text-center ">
+                            <h3 className="text-2xl font-bold">Submission</h3>
+                            <p className="text-xl pt-2">19 October - 25 October 2024</p>
+
+                        </div>
+                        <div className="w-[14%] text-center "></div>
+                        <div className="w-[14%] text-center ">
+                            <h3 className="text-2xl font-bold">Final</h3>
+                            <h3 className="text-2xl font-bold">Presentation</h3>
+                            <p className="text-xl pt-2">5 November 2024</p>
+
+                        </div>
+                        <div className="w-[14%] text-center "></div>
                     </div>
                 </div>
             }

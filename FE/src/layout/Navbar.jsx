@@ -1,15 +1,33 @@
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { isMobile } from "react-device-detect";
 import Logo from "../assets/landing/evolution-logo.webp";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout } from '../slice/userSlice';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user);
+    const [isLogin, setIsLogin] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLogout = () => {
+        dispatch(logout());
+    };
+
+    useEffect(() => {
+        if (user) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    }, [user]);
+    console.log(isLogin);
 
     return (
         <Fragment>
@@ -19,9 +37,9 @@ const Navbar = () => {
                         <img src={Logo} className="w-[30px] h-[30px]" alt="Logo" />
                         <div className="cursor-pointer" onClick={toggleMenu}>
                             {isOpen ? (
-                                <span className="text-3xl">✕</span> 
+                                <span className="text-3xl">✕</span>
                             ) : (
-                                <span className="text-3xl">☰</span> 
+                                <span className="text-3xl">☰</span>
                             )}
                         </div>
                     </div>
@@ -32,10 +50,17 @@ const Navbar = () => {
                             <p className="py-2">Talkshow</p>
                             <p className="py-2">Terms</p>
                             <p className="py-2">FAQ</p>
-                            <div className="flex flex-col">
-                                <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={e => (navigate('/login'))}>Login</p>
-                                <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={e => (navigate('/register'))}>Register</p>
-                            </div>
+                            {isLogin ?
+                                <div className="flex flex-col">
+                                    <p className="py-2 text-center md:text-left hover:cursor-pointer mx-auto" onClick={e => (navigate('/dashboard'))}>Dashboard</p>
+                                    <p className="py-2 text-center md:text-left hover:cursor-pointer mx-auto" onClick={handleLogout}>Logout</p>
+                                </div>
+                                :
+                                <div className="flex flex-col">
+                                    <p className="py-2 text-center md:text-left hover:cursor-pointer mx-auto" onClick={e => (navigate('/login'))}>Login</p>
+                                    <p className="py-2 text-center md:text-left hover:cursor-pointer mx-auto" onClick={e => (navigate('/register'))}>Register</p>
+                                </div>
+                            }
                         </div>
                     )}
                 </div>
@@ -50,10 +75,17 @@ const Navbar = () => {
                             <p className="pl-6">Terms</p>
                             <p className="pl-6">FAQ</p>
                         </div>
-                        <div className="flex items-center">
-                            <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/login'))}>Login</p>
-                            <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/register'))}>Register</p>
-                        </div>
+                        {isLogin ?
+                            <div className="flex items-center">
+                                <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={handleLogout}>Logout</p>
+                                <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/dahboard'))}>Dashboard</p>
+                            </div>
+                            :
+                            <div className="flex items-center">
+                                <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/login'))}>Login</p>
+                                <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/register'))}>Register</p>
+                            </div>
+                        }
                     </div>
                 </div>
             )}

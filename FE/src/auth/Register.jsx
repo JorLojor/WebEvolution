@@ -65,7 +65,7 @@ const Register = () => {
                                 className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
-                                placeholder='Nama'
+                                placeholder='Nama Ketua'
                                 value={id}
                                 onChange={(e) => setId(e.target.value)}
                                 required
@@ -107,7 +107,7 @@ const Register = () => {
                                 className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
-                                placeholder='Nomor Induk Mahasiswa (NIM)'
+                                placeholder='Nomor Induk Mahasiswa (NIM) / NISN Ketua'
                                 value={nim}
                                 onChange={(e) => setNim(e.target.value)}
                                 required
@@ -149,7 +149,7 @@ const Register = () => {
                                 className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
-                                placeholder='Kabupaten'
+                                placeholder='Kabupaten / Kota'
                                 value={kabupaten}
                                 onChange={(e) => setKabupaten(e.target.value)}
                                 required
@@ -222,6 +222,7 @@ const Register = () => {
                             Daftar
                         </button>
                     </div>
+                    <p className="text-center mt-4">Sudah Mempunyai Akun? <span className="text-blue-500" onClick={e=>(navigate('/login'))}>Masuk</span></p>
                 </div>
                 <div className={`${isMobile ? 'hidden' : 'w-1/2'} flex-1 min-h-screen bg-black flex justify-center items-center`}>
                     <img src={Logo} alt="Logo" className="w-1/2" />

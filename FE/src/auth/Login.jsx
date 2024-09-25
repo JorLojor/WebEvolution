@@ -83,7 +83,7 @@ const Login = () => {
                             Masuk
                         </button>
                     </div>
-                    <p className="text-center mt-4">Belum Mempunyai Akun? <span className="text-blue-500">Daftar</span></p>
+                    <p className="text-center mt-4">Belum Mempunyai Akun? <span className="text-blue-500" onClick={e=>(navigate('/register'))}>Daftar</span></p>
                 </div>
             </div>
             {error && (
