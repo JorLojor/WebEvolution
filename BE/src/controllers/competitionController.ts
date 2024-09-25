@@ -21,11 +21,7 @@ export const uploadDocumentController = async (req: Request, res: Response) => {
             return res.status(401).json({ message: 'Token tidak ditemukan atau tidak valid' });
         }
         const token = authHeader.split(" ")[1];
-        console.log(token);
         const decoded = jwt.verify(token, process.env.SECRET_KEY as string) as { RegistrationID: number };
-        console.log(decoded);
-        console.log(decoded.RegistrationID);
-        console.log(process.env.SECRET_KEY);
         if (!decoded || !decoded.RegistrationID) {
             return res.status(400).json({ message: 'Token tidak valid' });
         }

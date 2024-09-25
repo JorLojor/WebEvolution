@@ -51,51 +51,61 @@ export const createAdministrative = async (RegistrationID: number): Promise<numb
     }
 };
 
+
+
 export const inputDataAdministrative = async (RegistrationID: number, newDataAdministrative: Administrative): Promise<number> => {
     const { Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran } = newDataAdministrative;
-    
-    // mengecek apakah data dengan RegistrationID yang sesuai parameter ada di table Administrative
-    const dataAdministrative: any =  await DBconnection.query(
+
+    // Cek apakah registrasi valid
+    const [dataRegister]: [any[], any] = await DBconnection.query(
+        `SELECT * FROM Register WHERE RegistrationID = ? AND Status_Registrasi = 0`,
+        [RegistrationID]
+    );
+    if (dataRegister.length === 0) {
+        console.error('Registrasi tidak ditemukan atau Status_Registrasi bukan 0');
+        return 404;
+    }
+
+    // Cek apakah ada data di table Administrative yang terkait dengan RegistrationID
+    const [dataAdministrative]: [any[], any] = await DBconnection.query(
         `SELECT * FROM Administrative WHERE RegistrationID = ?`,
         [RegistrationID]
     );
     
-    // jika data ditemukan, maka data akan diupdate
-    if (dataAdministrative[0] ) {
-      let hasil: number = 0;
-      //  pengecekan untuk Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran yang kosong
-        if (Kartu_Tanda_Mahasiswa !== '' && dataAdministrative[0].Kartu_Tanda_Mahasiswa === '') {
+    if (dataAdministrative.length > 0) {
+        // Update semua data yang diberikan tanpa mengecek apakah sudah ada isinya
+        let hasil: number = 0;
+
+        if (Kartu_Tanda_Mahasiswa !== '') {
             await DBconnection.query(
                 `UPDATE Administrative SET Kartu_Tanda_Mahasiswa = ? WHERE RegistrationID = ?`,
                 [Kartu_Tanda_Mahasiswa, RegistrationID]
             );
-            console.log(' memasukkan Kartu_Tanda_Mahasiswa', Kartu_Tanda_Mahasiswa);
+            console.log('Update Kartu_Tanda_Mahasiswa', Kartu_Tanda_Mahasiswa);
             hasil = 200;
         }
 
-        if (Bukti_post_Twibon !== '' && dataAdministrative[0].Bukti_post_Twibon === '') {
+        if (Bukti_post_Twibon !== '') {
             await DBconnection.query(
                 `UPDATE Administrative SET Bukti_post_Twibon = ? WHERE RegistrationID = ?`,
                 [Bukti_post_Twibon, RegistrationID]
             );
-
-            console.log(' memasukkan Bukti_post_Twibon', Bukti_post_Twibon);
+            console.log('Update Bukti_post_Twibon', Bukti_post_Twibon);
             hasil = 200;
         }
 
-        if (Bukti_Pembayaran !== '' && dataAdministrative[0].Bukti_Pembayaran === '') {
+        if (Bukti_Pembayaran !== '') {
             await DBconnection.query(
                 `UPDATE Administrative SET Bukti_Pembayaran = ? WHERE RegistrationID = ?`,
                 [Bukti_Pembayaran, RegistrationID]
             );
-
-            console.log(' memasukkan Bukti_Pembayaran', Bukti_Pembayaran);
+            console.log('Update Bukti_Pembayaran', Bukti_Pembayaran);
             hasil = 200;
         }
 
         return hasil;
     } else {
-        console.error('Data tidak ditemukan');
-        return 404; 
+        console.error('Data Administrative tidak ditemukan');
+        return 404;
     }
 }

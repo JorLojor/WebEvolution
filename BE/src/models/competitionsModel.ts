@@ -9,8 +9,6 @@ export interface Competition {
   title: string;
 }
 
-// PR
-//1. tambahin column baru di table Competitions dengan nama title yang bertipe string 
 
 export const getAllCompetitions = async (): Promise<Competition[]> => {
   const [rows] = await DBconnection.query('SELECT * FROM Competitions');
