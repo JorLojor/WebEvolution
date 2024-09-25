@@ -11,9 +11,8 @@ import { isMobile } from 'react-device-detect';
 
 
 const Register = () => {
-    const [id, setId] = useState('');
-    const [team, setTeam] = useState('');
     const [nama, setNama] = useState('');
+    const [team, setTeam] = useState('');
     const [instansi, setInstansi] = useState('');
     const [nim, setNim] = useState('');
     const [email, setEmail] = useState('');
@@ -23,22 +22,38 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [confirmShowPassword, setConfirmShowPassword] = useState(false);
     const [error, setError] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogin = () => {
-        if (id === '' || password === '') {
-            setError('ID dan Password harus diisi.');
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+    };
+
+    const handleRegister = () => {
+        if (nama === '' || team === '' || instansi === '' || nim === '' || email === '' || provinsi === '' || kabupaten === '' || lomba === '' || password === '' || confirmPassword === '') {
+            setError('Semua Kolom Harus Diisi!');
             return;
         }
 
-        if (id === 'admin' && password === 'admin123') {
-            dispatch(login({ id, role: 'admin' }));
-            navigate('/');
-        } else {
-            setError('ID atau Password salah. Silakan coba lagi.');
+        if (!validateEmail(email)) {
+            setError('Format Email Tidak Valid!');
+            return;
         }
+
+        if (password.length < 8) {
+            setError('Password Minimal Terdiri Dari 8 Karakter!');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError('Password Tidak Sesuai');
+            return;
+        }
+
+        navigate('/login');
     };
 
     const closeModal = () => {
@@ -62,12 +77,12 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaUser className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${nama ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Nama Ketua'
-                                value={id}
-                                onChange={(e) => setId(e.target.value)}
+                                value={nama}
+                                onChange={(e) => setNama(e.target.value)}
                                 required
                             />
                         </div>
@@ -76,7 +91,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaUserGroup className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${team ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Nama Tim'
@@ -90,7 +105,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <HiAcademicCap className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${instansi ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Nama Instansi'
@@ -104,7 +119,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaAddressCard className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${nim ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Nomor Induk Mahasiswa (NIM) / NISN Ketua'
@@ -118,7 +133,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <MdEmail className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${email ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Email'
@@ -132,7 +147,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaMapMarked className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${provinsi ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Provinsi'
@@ -146,7 +161,7 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                             <FaMapMarked className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${id ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${kabupaten ? 'text-black' : 'text-[#616161]'
                                     }`}
                                 type="text"
                                 placeholder='Kabupaten / Kota'
@@ -198,9 +213,9 @@ const Register = () => {
                         <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
                             <FaLock className="ml-4" />
                             <input
-                                className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${password ? 'text-black' : 'text-[#616161]'
+                                className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${confirmPassword ? 'text-black' : 'text-[#616161]'
                                     }`}
-                                type={showPassword ? 'text' : 'password'}
+                                type={confirmShowPassword ? 'text' : 'password'}
                                 placeholder='Confirm Password'
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -208,21 +223,21 @@ const Register = () => {
                             />
                             <button
                                 className="absolute right-4 top-1/2 transform -translate-y-1/2 focus:outline-none"
-                                onClick={() => setShowPassword(!showPassword)}
+                                onClick={() => setConfirmShowPassword(!confirmShowPassword)}
                             >
-                                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                                {confirmShowPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
                             </button>
                         </div>
                     </div>
                     <div className="w-full">
                         <button
-                            className={`${password && id ? 'bg-[black]' : 'bg-[#616161]'}  text-white h-[87px] w-[80%] ml-[10%] rounded-[10px] mt-7 text-[20px] font-medium`}
-                            onClick={handleLogin}
+                            className={`${password && nama ? 'bg-[black]' : 'bg-[#616161]'}  text-white h-[87px] w-[80%] ml-[10%] rounded-[10px] mt-7 text-[20px] font-medium`}
+                            onClick={handleRegister}
                         >
                             Daftar
                         </button>
                     </div>
-                    <p className="text-center mt-4">Sudah Mempunyai Akun? <span className="text-blue-500" onClick={e=>(navigate('/login'))}>Masuk</span></p>
+                    <p className="text-center mt-4">Sudah Mempunyai Akun? <span className="text-blue-500" onClick={e => (navigate('/login'))}>Masuk</span></p>
                 </div>
                 <div className={`${isMobile ? 'hidden' : 'w-1/2'} flex-1 min-h-screen bg-black flex justify-center items-center`}>
                     <img src={Logo} alt="Logo" className="w-1/2" />
