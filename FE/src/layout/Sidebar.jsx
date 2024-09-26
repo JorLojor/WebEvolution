@@ -325,8 +325,17 @@ const Sidebar = () => {
      const navigate = useNavigate();
      const dispatch = useDispatch();
      //  ambil user dari redux
+     // Ambil user dari redux
      const ambilUser = useSelector((state) => state.user);
-     const tokenne = ambilUser.user.token;
+     const tokenne = ambilUser.user?.token;
+     console.log(tokenne);
+
+     // Jika user atau token tidak tersedia, tampilkan pesan atau alihkan pengguna
+     if (!tokenne) {
+          console.warn("User is not authenticated");
+          // Redirect ke halaman login atau tampilkan pesan tertentu
+          return null; // Atau return sebuah JSX component yang menampilkan pesan error
+     }
 
      const handleCloseAlert = () => {
           setLogoutAlert(false);
@@ -341,7 +350,7 @@ const Sidebar = () => {
                          method: "POST",
                          headers: {
                               "Content-Type": "application/json",
-                              Authorization: tokenne, // Token pengguna yang disimpan di localStorage
+                              Authorization: `Bearer ${tokenne}`,
                          },
                     }
                );
@@ -359,8 +368,10 @@ const Sidebar = () => {
                // Penanganan error tambahan bisa ditambahkan di sini
           }
           setShowConfirm(false); // Tutup konfirmasi logout
-     };
+          //   pindah ke halaman dashboard setelah logout
 
+          navigate("/login");
+     };
      const handleCancel = () => {
           setShowConfirm(false);
      };
