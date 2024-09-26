@@ -1,10 +1,7 @@
 import { Request, Response } from "express";
 import {
      getAllCompetitions,
-     uploadDocument,
      inputDataCompetitions,
-     createCompetitions,
-     checkCompetitionsByRegistrationID,
 } from "../models/competitionsModel";
 import jwt from "jsonwebtoken";
 import { checkStatusRegistrasiWithExpectedStatus } from "../models/registerModel";
