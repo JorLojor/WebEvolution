@@ -1,11 +1,10 @@
 import { Fragment } from "react";
-import Layout from "../layout/Layout"
 
 const Administrative = ()=>{
     return (
-        <Layout>
-            <h1>ini Administrative</h1>
-        </Layout>
+        <Fragment>
+            <h1 className="text-white">ini Administrative</h1>
+        </Fragment>
     )
 };
 

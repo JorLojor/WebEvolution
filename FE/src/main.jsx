@@ -9,10 +9,7 @@ import App from "./App";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import NotFound from "./pages/NotFound";
-import Dashboard from "./pages/Dashboard";
-import Competitions from "./pages/Competitions";
-import MemberTeam from "./pages/MemberTeam";
-import Finalis from "./pages/Finalis";
+import Dashboard from "./layout/Layout";
 import { store, persistor } from "./store";
 
 const router = createBrowserRouter([
@@ -35,18 +32,6 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard />,
-  },
-  {
-    path: "/competitions",
-    element: <Competitions />,
-  },
-  {
-    path: "/member",
-    element: <MemberTeam />,
-  },
-  {
-    path: "/finalis",
-    element: <Finalis />,
   },
 ]);
 

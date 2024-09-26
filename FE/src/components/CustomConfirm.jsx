@@ -15,7 +15,7 @@ const CustomConfirm = ({ message, onConfirm, onCancel }) => {
                 <p className="mb-4 text-center text-white">{message}</p>
                 <div className="flex justify-center space-x-4">
                     <button 
-                        className="bg-[#278307] text-white px-4 py-2 rounded hover:bg-[#1b5e05]"
+                        className="bg-[#d62727] text-white px-4 py-2 rounded hover:bg-[#1b5e05]"
                         onClick={onConfirm}>
                         Yes
                     </button>
