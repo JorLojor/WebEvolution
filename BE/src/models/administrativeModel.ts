@@ -56,6 +56,8 @@ export const inputDataAdministrative = async (RegistrationID: number, newDataAdm
     } else {
         console.error('Data Administrative tidak ditemukan');
         return 404;
+
+             
     }
 }
 
