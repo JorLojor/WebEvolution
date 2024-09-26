@@ -19,10 +19,28 @@ export interface Register {
     token: string;
 }
 
+// fungsi untuk cek Status_Registrasi
+export const checkStatusRegistrasiWithExpectedStatus = async (RegistrationID: number, expect_status: number): Promise<number> => {
+    const [dataRegister]: any = await DBconnection.query('SELECT Status_Registrasi FROM Register WHERE RegistrationID = ?', [RegistrationID]);
+    if (dataRegister.length > 0) {
+        if (dataRegister[0].Status_Registrasi === expect_status) {
+            return expect_status;
+        } else {
+            return 500;
+        }
+    } else {
+        return 500;
+    }
+};
+// fungsi untuk merubah status
+export const changeStatusRegistrasi = async (RegistrationID: number, newStatus: number): Promise<void> => {
+    await DBconnection.query('UPDATE Register SET Status_Registrasi = ? WHERE RegistrationID = ?', [newStatus, RegistrationID]);
+};
+
+
+// fungsi untuk input data registrasi
 export const createRegister = async (newRegister: Register): Promise<number> => {
     const {RegistrationID, Nama, Nomor_Telfon, Nama_Instansi, Nama_Team, Nomor_Induk_Mahasiswa, Email, Provinsi, Kabupaten, Password, Pilihan_Lomba } = newRegister;
-
-
 
     await DBconnection.query(
         `INSERT INTO Register 

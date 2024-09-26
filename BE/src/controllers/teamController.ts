@@ -1,6 +1,7 @@
 import {Request, Response} from 'express';
 import {getAllTeams,addMemberTeam} from '../models/teamModel';
 import jwt from 'jsonwebtoken';
+import { changeStatusRegistrasi, checkStatusRegistrasiWithExpectedStatus } from '../models/registerModel';
 
 
 export const getAllTeamsController = async (req: Request, res: Response) => {
@@ -20,13 +21,22 @@ export const addMemberTeamController = async (req: Request, res: Response) => {
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ message: 'Token tidak ditemukan atau tidak valid' });
         }
+
         const token = authHeader.split(" ")[1];
         const decoded = jwt.verify(token, process.env.SECRET_KEY as string) as { RegistrationID: number };
-
         if (!decoded || !decoded.RegistrationID) {
             return res.status(400).json({ message: 'Token tidak valid' });
         }
+
         const RegistrationID = decoded.RegistrationID;
+        
+
+
+        const cek_status = await checkStatusRegistrasiWithExpectedStatus(RegistrationID,0);
+        if (cek_status !== 0) {
+            return res.status(400).json({ message: 'bad request' });
+        }
+
         const { Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3 } = req.body;
 
         if (!Nama_Anggota2 || !NIM_Anggota2 || !Nama_Anggota3 || !NIM_Anggota3) {
@@ -40,6 +50,9 @@ export const addMemberTeamController = async (req: Request, res: Response) => {
                 message: 'Team members updated successfully',
                 team: updatedTeam,
             });
+
+            await changeStatusRegistrasi(RegistrationID, 1);
+
         } else {
             res.status(404).json({ message: 'Team not found for the provided RegistrationID' });
         }
