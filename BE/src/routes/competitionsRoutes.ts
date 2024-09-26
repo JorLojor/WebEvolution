@@ -1,13 +1,15 @@
 import  {Router} from "express";
-import {getAllCompetitionsController,uploadDocumentController,checkCompetitionsByRegistrationIDController,createCompetitionsController} from "../controllers/competitionController";
+import {getAllCompetitionsController,inputDataCompetitionsController} from "../controllers/competitionController";
+import upload from "../config/multer";
 
 const router = Router();
 
 router.get('/', getAllCompetitionsController);
-router.put('/upload', uploadDocumentController); // http://localhost:3987/api/competitions/upload
+router.post('/upload', upload.fields([
+    {name: 'Proposal', maxCount: 1},
+    {name: 'Dokumen_Substansi',maxCount: 1},
+    {name: 'Pernyataan_Originalitas',maxCount: 1}
+]),inputDataCompetitionsController);
 
-router.get('/check/:registrationID', checkCompetitionsByRegistrationIDController); 
-
-router.post('/create', createCompetitionsController);
 
 export default router;

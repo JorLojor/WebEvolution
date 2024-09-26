@@ -31,10 +31,10 @@ const Register = () => {
      const navigate = useNavigate();
 
      const lombaOptions = [
-          { nama: "Poster" },
-          { nama: "Web" },
-          { nama: "Business Plan" },
-          { nama: "UI/UX" },
+          { nama: "bisnis plan" },
+          { nama: "uiux" },
+          { nama: "web design" },
+          { nama: "poster infografis" },
      ];
 
      const handleRegister = async (e) => {
