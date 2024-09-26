@@ -12,57 +12,59 @@ import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Competitions from "./pages/Competitions";
 import MemberTeam from "./pages/MemberTeam";
+import Administrative from "./pages/Administrative";
 import Finalis from "./pages/Finalis";
 import { store, persistor } from "./store";
 
 const router = createBrowserRouter([
-  {
-    path: "*",
-    element: <NotFound />,
-  },
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/competitions",
-    element: <Competitions />,
-  },
-  {
-    path: "/member",
-    element: <MemberTeam />,
-  },
-  {
-    path: "/finalis",
-    element: <Finalis />,
-  },
+     {
+          path: "*",
+          element: <NotFound />,
+     },
+     {
+          path: "/",
+          element: <App />,
+     },
+     {
+          path: "/login",
+          element: <Login />,
+     },
+     {
+          path: "/register",
+          element: <Register />,
+     },
+     {
+          path: "/dashboard",
+          element: <Dashboard />,
+     },
+     {
+          path: "/administrative",
+          element: <Administrative />,
+     },
+     {
+          path: "/competitions",
+          element: <Competitions />,
+     },
+     {
+          path: "/member",
+          element: <MemberTeam />,
+     },
+     {
+          path: "/finalis",
+          element: <Finalis />,
+     },
 ]);
 
 function Root() {
-
-  return (
-      <RouterProvider router={router} />
-  );
+     return <RouterProvider router={router} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Root />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+     <React.StrictMode>
+          <Provider store={store}>
+               <PersistGate loading={null} persistor={persistor}>
+                    <Root />
+               </PersistGate>
+          </Provider>
+     </React.StrictMode>
 );

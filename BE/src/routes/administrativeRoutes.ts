@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
      getAllAdministrativeController,
      uploadAdministrativeController,
+     checkAdministrativeController,
 } from "../controllers/administrativeController";
 import upload from "../config/multer";
 
@@ -18,6 +19,6 @@ router.post(
 ); // http://localhost:3987/api/administrative/upload/document
 
 router.get("/", getAllAdministrativeController);
-// router.put('/upload', inputDataAdministrativeController); // http://localhost:3987/api/administrative/upload
+router.get("/cek-administrasi", checkAdministrativeController); // http://localhost:3987/api/administrative/cek-administrasi
 
 export default router;

@@ -6,6 +6,8 @@ import {
      FaMap,
      FaDatabase,
      FaUsers,
+     FaStickyNote,
+     FaTrophy,
      FaSignOutAlt,
      FaChevronDown,
      FaChevronUp,
@@ -31,17 +33,16 @@ const Sidebar = () => {
      const [currentPage, setCurrentPage] = useState("");
      const navigate = useNavigate();
      const dispatch = useDispatch();
-     //  ambil user dari redux
-     // Ambil user dari redux
+
      const ambilUser = useSelector((state) => state.user);
      const tokenne = ambilUser.user?.token;
      console.log(tokenne);
 
-     // Jika user atau token tidak tersedia, tampilkan pesan atau alihkan pengguna
+   
      if (!tokenne) {
           console.warn("User is not authenticated");
-          // Redirect ke halaman login atau tampilkan pesan tertentu
-          return null; // Atau return sebuah JSX component yang menampilkan pesan error
+        
+          return null; 
      }
 
      const handleCloseAlert = () => {
@@ -64,18 +65,18 @@ const Sidebar = () => {
 
                const result = await response.json();
                if (response.ok) {
-                    dispatch(logout()); // Hapus status login dari redux
-                    setLogoutAlert(true); // Tampilkan alert bahwa logout berhasil
+                    dispatch(logout()); 
+                    setLogoutAlert(true); 
                } else {
                     console.error(result.message);
-                    // Tambahkan penanganan error sesuai kebutuhan
+                    
                }
           } catch (error) {
                console.error("Error saat logout:", error);
-               // Penanganan error tambahan bisa ditambahkan di sini
+              
           }
-          setShowConfirm(false); // Tutup konfirmasi logout
-          //   pindah ke halaman dashboard setelah logout
+          setShowConfirm(false); 
+          
 
           navigate("/login");
      };
@@ -178,6 +179,53 @@ const Sidebar = () => {
                               animate={{ x: 0, opacity: 1 }}
                               transition={{ duration: 0.5 }}>
                               Team
+                         </motion.p>
+                    )}
+               </div>
+
+               <div
+                    className={`button-sidebar flex items-center p-4 mt-8 ${
+                         buka ? "ml-6" : "mx-auto"
+                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
+                         currentPage === "Team"
+                              ? "bg-gray-700 text-white"
+                              : "text-[#BFBFBF]"
+                    }`}
+                    onClick={() => navigate("/administrative")}>
+                    <FaStickyNote
+                         className={`${
+                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
+                         }`}
+                    />
+                    {buka && (
+                         <motion.p
+                              initial={{ x: -20, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ duration: 0.5 }}>
+                              Administrative
+                         </motion.p>
+                    )}
+               </div>
+               <div
+                    className={`button-sidebar flex items-center p-4 mt-8 ${
+                         buka ? "ml-6" : "mx-auto"
+                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
+                         currentPage === "Team"
+                              ? "bg-gray-700 text-white"
+                              : "text-[#BFBFBF]"
+                    }`}
+                    onClick={() => navigate("/competitions")}>
+                    <FaTrophy
+                         className={`${
+                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
+                         }`}
+                    />
+                    {buka && (
+                         <motion.p
+                              initial={{ x: -20, opacity: 0 }}
+                              animate={{ x: 0, opacity: 1 }}
+                              transition={{ duration: 0.5 }}>
+                              Competitions
                          </motion.p>
                     )}
                </div>
