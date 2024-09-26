@@ -7,6 +7,8 @@ export interface Administrative {
   Bukti_post_Twibon: string;
   Bukti_Pembayaran: string;
 }
+
+
 export const inputDataAdministrative = async (RegistrationID: number, newDataAdministrative: Administrative): Promise<number> => {
     const { Kartu_Tanda_Mahasiswa, Bukti_post_Twibon, Bukti_Pembayaran } = newDataAdministrative;
 
