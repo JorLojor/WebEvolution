@@ -1,10 +1,12 @@
-import { Fragment } from "react";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import Layout from "../layout/Layout";
 
 const MemberTeam = ()=>{
     return (
-        <Fragment>
-            <h1 className="text-white">ini MemberTeam</h1>
-        </Fragment>
+        <Layout>
+            <h1>ini MemberTeam</h1>
+        </Layout>
     )
 };
 

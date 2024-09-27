@@ -1,3 +1,5 @@
+
+// Layout Component
 import { Fragment, useState } from "react";
 import Dashboard from "../pages/Dashboard";
 import Team from "../pages/MemberTeam";
@@ -5,7 +7,7 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 const Layout = ()=> {
-    const [currentPage, setCurrentPage] = useState('Dashboard'); // State untuk menyimpan halaman aktif
+    const [currentPage, setCurrentPage] = useState('Dashboard');
 
     const renderPage = () => {
         switch (currentPage) {
@@ -31,6 +33,6 @@ const Layout = ()=> {
             </div>
         </Fragment>
     );
-}
+};
 
 export default Layout;

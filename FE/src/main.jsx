@@ -33,21 +33,30 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <Dashboard />,
   },
+  {
+    path: "/competitions",
+    element: <Competitions />,
+  },
+  {
+    path: "/member",
+    element: <MemberTeam />,
+  },
+  {
+    path: "/finalis",
+    element: <Finalis />,
+  },
 ]);
 
 function Root() {
-
-  return (
-      <RouterProvider router={router} />
-  );
+     return <RouterProvider router={router} />;
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Root />
-      </PersistGate>
-    </Provider>
-  </React.StrictMode>
+     <React.StrictMode>
+          <Provider store={store}>
+               <PersistGate loading={null} persistor={persistor}>
+                    <Root />
+               </PersistGate>
+          </Provider>
+     </React.StrictMode>
 );
