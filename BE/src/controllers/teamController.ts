@@ -1,5 +1,10 @@
 import { Request, Response } from "express";
-import { getAllTeams, addMemberTeam } from "../models/teamModel";
+import {
+     getAllTeams,
+     addMemberTeam,
+     getTeamByID,
+     getTeamNameByID,
+} from "../models/teamModel";
 import jwt from "jsonwebtoken";
 import {
      changeStatusRegistrasi,
@@ -74,6 +79,83 @@ export const addMemberTeamController = async (req: Request, res: Response) => {
           );
           res.status(500).json({
                message: "Internal server error during addMemberTeamController",
+          });
+     }
+};
+
+export const getTeamByIDController = async (req: Request, res: Response) => {
+     try {
+          const authHeader = req.headers.authorization;
+          if (!authHeader || !authHeader.startsWith("Bearer ")) {
+               return res.status(401).json({
+                    message: "Token tidak ditemukan atau tidak valid",
+               });
+          }
+
+          const token = authHeader.split(" ")[1];
+          const decoded = jwt.verify(
+               token,
+               process.env.SECRET_KEY as string
+          ) as { RegistrationID: number };
+          if (!decoded || !decoded.RegistrationID) {
+               return res.status(400).json({ message: "Token tidak valid" });
+          }
+
+          const RegistrationID = decoded.RegistrationID;
+
+          const team = await getTeamByID(RegistrationID);
+          if (team) {
+               res.json(team);
+          } else {
+               res.status(404).json({ message: "Team not found" });
+          }
+     } catch (error) {
+          console.error(
+               error,
+               "\n   backend error broo bagian team controller"
+          );
+          res.status(500).json({
+               message: "backend error broo bagian team controller",
+          });
+     }
+};
+
+export const getTeamNameByIDController = async (
+     req: Request,
+     res: Response
+) => {
+     try {
+          const authHeader = req.headers.authorization;
+          if (!authHeader || !authHeader.startsWith("Bearer ")) {
+               return res.status(401).json({
+                    message: "Token tidak ditemukan atau tidak valid",
+               });
+          }
+
+          const token = authHeader.split(" ")[1];
+          const decoded = jwt.verify(
+               token,
+               process.env.SECRET_KEY as string
+          ) as { RegistrationID: number };
+          if (!decoded || !decoded.RegistrationID) {
+               return res.status(400).json({ message: "Token tidak valid" });
+          }
+
+          const RegistrationID = decoded.RegistrationID;
+
+          const team = await getTeamNameByID(RegistrationID);
+          if (team) {
+               res.json(team);
+          } else {
+               res.status(404).json({ message: "Team not found" });
+          }
+     } catch (error) {
+          console.error(
+               error,
+               "\n   backend error broo bagian team controller"
+          );
+          res.status(500).json({
+               message: "backend error broo bagian team controller",
           });
      }
 };
