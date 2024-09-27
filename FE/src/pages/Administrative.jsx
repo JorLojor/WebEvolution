@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import Layout from "../layout/Layout";
+
+import { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 // import css
 import "./loading.css";
@@ -117,46 +117,46 @@ const Administrative = () => {
      };
 
      return (
-          <Layout>
+          <Fragment>
                <div className="container mt-5">
-                    <h1 className="text-center mb-4">
+                    <h1 className="mb-4 text-white bg-[#222725] p-4 rounded-md">
                          Upload Dokumen Administrasi
                     </h1>
 
                     {isRegistered === null ? (
-                         <div className="alert alert-info">
+                         <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Memeriksa status registrasi...
                          </div>
                     ) : isRegistered ? (
-                         <div className="alert alert-success">
+                         <div className="alert alert-success text-white bg-[#222725] p-4 rounded-md">
                               Anda sudah terdaftar. Anda tidak bisa mengunggah
                               dokumen lagi.
                          </div>
                     ) : (
-                         <div className="alert alert-warning">
+                         <div className="alert alert-warning text-white bg-[#222725] p-4 rounded-md">
                               Anda belum terdaftar. Silakan unggah dokumen Anda
                               di bawah ini.
                          </div>
                     )}
 
                     {uploadSuccess && (
-                         <div className="alert alert-info">
+                         <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Dokumen Anda berhasil diunggah.
                          </div>
                     )}
 
                     <form
                          onSubmit={handleSubmitAdministrative}
-                         className="p-4 shadow-sm rounded bg-light">
-                         <div className="form-group mb-3">
-                              <label className="form-label">
+                         className="p-4 shadow-sm rounded-md bg-light bg-[#222725] mt-4">
+                         <div className="form-group mb-3 flex items-center ">
+                              <p className="form-label text-white w-1/5">
                                    Kartu Tanda Mahasiswa
-                              </label>
+                              </p>
                               <input
                                    type="file"
                                    name="Kartu_Tanda_Mahasiswa"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={
                                         files.Kartu_Tanda_Mahasiswa
                                              ? undefined
@@ -166,15 +166,15 @@ const Administrative = () => {
                               />
                          </div>
 
-                         <div className="form-group mb-3">
-                              <label className="form-label">
+                         <div className="form-group mb-3 flex items-center">
+                              <p className="form-label text-white w-1/5">
                                    Bukti Post Twibon
-                              </label>
+                              </p>
                               <input
                                    type="file"
                                    name="Bukti_post_Twibon"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={
                                         files.Bukti_post_Twibon ? undefined : ""
                                    }
@@ -182,15 +182,15 @@ const Administrative = () => {
                               />
                          </div>
 
-                         <div className="form-group mb-3">
-                              <label className="form-label">
+                         <div className="form-group mb-3 flex items-center">
+                              <p className="form-label text-white w-1/5">
                                    Bukti Pembayaran
-                              </label>
+                              </p>
                               <input
                                    type="file"
                                    name="Bukti_Pembayaran"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={
                                         files.Bukti_Pembayaran ? undefined : ""
                                    }
@@ -200,7 +200,7 @@ const Administrative = () => {
 
                          <button
                               type="submit"
-                              className="btn btn-primary w-100 bg-red-400"
+                              className="btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4"
                               disabled={isRegistered} // Menonaktifkan tombol jika sudah terdaftar
                          >
                               Upload
@@ -213,7 +213,7 @@ const Administrative = () => {
                          </div>
                     )}
                </div>
-          </Layout>
+          </Fragment>
      );
 };
 

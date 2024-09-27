@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+
+import { useState, useEffect, Fragment } from "react";
 import Layout from "../layout/Layout";
 import { useSelector } from "react-redux";
 import "./loading.css";
@@ -118,56 +119,56 @@ const CompetitionUpload = () => {
      };
 
      return (
-          <Layout>
+          <Fragment>
                <div className="container mt-5">
-                    <h1 className="text-center mb-4">
+                    <h1 className="text-center mb-4 text-white bg-[#222725] p-4 rounded-md">
                          Upload Dokumen Kompetisi
                     </h1>
 
                     {isVerified === null ? (
-                         <div className="alert alert-info">
+                         <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Memeriksa status registrasi...
                          </div>
                     ) : isVerified ? (
-                         <div className="alert alert-success">
+                         <div className="alert alert-success text-white bg-[#222725] p-4 rounded-md">
                               document sudah di upload
                          </div>
                     ) : (
-                         <div className="alert alert-warning">
+                         <div className="alert alert-warning text-white bg-[#222725] p-4 rounded-md">
                               tolong Upload document Di bawah
                          </div>
                     )}
 
                     {uploadSuccess && (
-                         <div className="alert alert-info">
+                         <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Dokumen Anda berhasil diunggah.
                          </div>
                     )}
 
                     <form
                          onSubmit={handleSubmitCompetition}
-                         className="p-4 shadow-sm rounded bg-light">
-                         <div className="form-group mb-3">
-                              <label className="form-label">Proposal</label>
+                         className="p-4 shadow-sm rounded-md bg-light bg-[#222725] mt-4">
+                         <div className="form-group mb-3 flex items-center">
+                              <p className="form-label text-white w-1/5">Proposal</p>
                               <input
                                    type="file"
                                    name="Proposal"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={files.Proposal ? undefined : ""}
                                    disabled={isVerified}
                               />
                          </div>
 
-                         <div className="form-group mb-3">
-                              <label className="form-label">
+                         <div className="form-group mb-3 flex items-center">
+                              <p className="form-label text-white w-1/5">
                                    Dokumen Substansi
-                              </label>
+                              </p>
                               <input
                                    type="file"
                                    name="Dokumen_Substansi"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={
                                         files.Dokumen_Substansi ? undefined : ""
                                    }
@@ -175,15 +176,15 @@ const CompetitionUpload = () => {
                               />
                          </div>
 
-                         <div className="form-group mb-3">
-                              <label className="form-label">
+                         <div className="form-group mb-3 flex items-center">
+                              <p className="form-label text-white w-1/5">
                                    Pernyataan Originalitas
-                              </label>
+                              </p>
                               <input
                                    type="file"
                                    name="Pernyataan_Originalitas"
                                    onChange={handleFileChange}
-                                   className="form-control"
+                                   className="form-control w-max bg-[#E4E6C3] rounded-md p-2"
                                    value={
                                         files.Pernyataan_Originalitas
                                              ? undefined
@@ -195,7 +196,7 @@ const CompetitionUpload = () => {
 
                          <button
                               type="submit"
-                              className="btn btn-primary w-100 bg-red-400"
+                              className="btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4"
                               disabled={isVerified}>
                               Upload
                          </button>
@@ -207,7 +208,7 @@ const CompetitionUpload = () => {
                          </div>
                     )}
                </div>
-          </Layout>
+          </Fragment>
      );
 };
 
