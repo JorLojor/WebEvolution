@@ -1,344 +1,211 @@
-/* eslint-disable no-unused-vars */
 import propTypes from "prop-types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import {
-     FaMap,
-     FaDatabase,
-     FaUsers,
-     FaStickyNote,
-     FaTrophy,
-     FaSignOutAlt,
-     FaChevronDown,
-     FaChevronUp,
-     FaChartBar,
-     FaSitemap,
-} from "react-icons/fa";
 import CustomAlert from "../components/CustomAlert";
 import CustomConfirm from "../components/CustomConfirm";
-import { useDispatch } from "react-redux";
+import { FaMap, FaUsers, FaSignOutAlt, FaChevronDown, FaChevronUp, FaChartBar } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../slice/userSlice";
 import Logo from "../assets/landing/evolution-logo.webp";
-import logoTutup from "../assets/landing/evolution-logo.webp";
 import { isMobile } from "react-device-detect";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-const Sidebar = () => {
-     const [showConfirm, setShowConfirm] = useState(false);
-     const [logoutAlert, setLogoutAlert] = useState(false);
-     const [dataDropdownOpen, setDataDropdownOpen] = useState(false);
-     const [databaseDropdownOpen, setDatabaseDropdownOpen] = useState(false);
-     const [buka, setBuka] = useState(false);
-     const [currentPage, setCurrentPage] = useState("");
-     const navigate = useNavigate();
-     const dispatch = useDispatch();
+const Sidebar = ({ currentPage, setCurrentPage }) => {
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [logoutAlert, setLogoutAlert] = useState(false);
+    const [dataDropdownOpen, setDataDropdownOpen] = useState(false);
+    const [buka, setBuka] = useState(!isMobile); 
+    const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user);
+    console.log(currentPage);
+    
+    const tokenne = localStorage.getItem("token"); 
 
-     const ambilUser = useSelector((state) => state.user);
-     const tokenne = ambilUser.user?.token;
-     console.log(tokenne);
+    const handleCloseAlert = () => {
+        setLogoutAlert(false);
+    };
 
-   
-     if (!tokenne) {
-          console.warn("User is not authenticated");
-        
-          return null; 
-     }
+    const handleConfirm = async () => {
+        try {
+            const response = await fetch("http://localhost:3987/api/register/logout", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: tokenne,
+                },
+            });
 
-     const handleCloseAlert = () => {
-          setLogoutAlert(false);
-     };
+            const result = await response.json();
+            if (response.ok) {
+                dispatch(logout());
+                setLogoutAlert(true);
+            } else {
+                console.error(result.message);
+            }
+        } catch (error) {
+            console.error("Error saat logout:", error);
+        }
+        setShowConfirm(false);
+    };
 
-     const handleConfirm = async () => {
-          console.log(tokenne);
-          try {
-               const response = await fetch(
-                    "http://localhost:3987/api/register/logout",
-                    {
-                         method: "POST",
-                         headers: {
-                              "Content-Type": "application/json",
-                              Authorization: `Bearer ${tokenne}`,
-                         },
-                    }
-               );
+    const handleCancel = () => {
+        setShowConfirm(false);
+    };
 
-               const result = await response.json();
-               if (response.ok) {
-                    dispatch(logout()); 
-                    setLogoutAlert(true); 
-               } else {
-                    console.error(result.message);
-                    
-               }
-          } catch (error) {
-               console.error("Error saat logout:", error);
-              
-          }
-          setShowConfirm(false); 
-          
+    const handleClickMenu = (menu) => {
+        if (menu === "Sign Out") {
+            setShowConfirm(true);
+        } else {
+            setCurrentPage(menu);
+            setBuka(!isMobile ? !buka : false); // Jika `isMobile`, tutup sidebar setelah klik
+        }
+    };
 
-          navigate("/login");
-     };
-     const handleCancel = () => {
-          setShowConfirm(false);
-     };
+    const toggleDataDropdown = () => {
+        setDataDropdownOpen(!dataDropdownOpen);
+    };
 
-     const handleClickMenu = (menu) => {
-          if (menu === "Sign Out") {
-               setShowConfirm(true);
-          } else {
-               setCurrentPage(menu);
-               setBuka(!buka);
-          }
-     };
+    return (
+        <motion.div
+            animate={{ width: buka ? "15rem" : "5rem" }}
+            transition={{ duration: 0.5 }}
+            className="sidebar bg-[#222725] h-full min-h-screen flex flex-col fixed top-0 left-0 overflow-y-scroll overflow-x-hidden scrollbar-thin"
+        >
+            {/* Sidebar Header */}
+            <div
+                className="button-sidebar flex items-center p-4 cursor-pointer border-b border-b-zinc-600"
+                onClick={() => setBuka(!buka)}
+            >
+                {buka ? (
+                    <div className="flex items-center">
+                        <img src={Logo} className="w-max h-[50px] mx-auto" alt="logo" />
+                        <motion.p
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                            className="text-2xl text-white pl-2"
+                        >
+                            Evolution
+                        </motion.p>
+                    </div>
+                ) : (
+                    <img src={Logo} className="w-max max-h-[50px] mx-auto" alt="logo" />
+                )}
+            </div>
 
-     const toggleDataDropdown = () => {
-          setDataDropdownOpen(!dataDropdownOpen);
-     };
+            {/* Main Section */}
+            <div className="mt-5">
+                <p className={`text-white px-4 mb-2 ${buka ? "text-base" : "text-xs"}`}>Main</p>
 
-     const toggleDatabaseDropdown = () => {
-          setDatabaseDropdownOpen(!databaseDropdownOpen);
-     };
-
-     return (
-          <motion.div
-               animate={{
-                    width: buka
-                         ? isMobile
-                              ? "15rem"
-                              : "21.5rem"
-                         : isMobile
-                         ? `4rem`
-                         : "7rem",
-               }}
-               transition={{ duration: 0.5 }}
-               className="sidebar bg-gray-800 h-full min-h-screen flex flex-col fixed top-0 left-0 overflow-y-scroll overflow-x-hidden scrollbar-thin"
-               onClick={!buka ? () => setBuka(true) : null}>
-               <div
-                    className="button-sidebar flex items-center p-4 hover:bg-gray-700 active:bg-gray-600 cursor-pointer border-b border-b-zinc-600"
-                    onClick={() => handleClickMenu("Map")}>
-                    {buka ? (
-                         <img
-                              src={Logo}
-                              className="w-max h-[75px]"
-                              alt="logo"
-                         />
-                    ) : (
-                         <img
-                              src={logoTutup}
-                              className="w-max h-[75px]"
-                              alt="logo"
-                         />
-                    )}
-               </div>
-
-               {/* Menu "Dashboard" */}
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-8 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage === "Dashboard"
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
+                {/* Dashboard Menu */}
+                <div
+                    className={`button-sidebar flex items-center p-4 w-4/5 mx-auto text-base hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${
+                        currentPage === "Dashboard" ? "bg-[#121113] text-white" : "text-[#BFBFBF]"
                     }`}
-                    onClick={() => navigate("/dashboard")}>
-                    <FaMap
-                         className={`${
-                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
-                         }`}
-                    />
+                    onClick={() => handleClickMenu("Dashboard")}
+                >
+                    <FaMap className={`${buka ? "mr-4" : "mx-auto text-base md:text-lg"}`} />
                     {buka && (
-                         <motion.p
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}>
-                              Dashboard
-                         </motion.p>
+                        <motion.p initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
+                            Dashboard
+                        </motion.p>
                     )}
-               </div>
+                </div>
 
-               {/* Menu "Team" */}
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-8 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage === "Team"
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
+                {/* Team Menu */}
+                <div
+                    className={`button-sidebar flex items-center p-4 mt-1 w-4/5 mx-auto text-base hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${
+                        currentPage === "Team" ? "bg-[#121113] text-white" : "text-[#BFBFBF]"
                     }`}
-                    onClick={() => navigate("/member")}>
-                    <FaUsers
-                         className={`${
-                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
-                         }`}
-                    />
+                    onClick={() => handleClickMenu("Team")}
+                >
+                    <FaUsers className={`${buka ? "mr-4" : "mx-auto text-base"}`} />
                     {buka && (
-                         <motion.p
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}>
-                              Team
-                         </motion.p>
+                        <motion.p initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
+                            Team
+                        </motion.p>
                     )}
-               </div>
+                </div>
+            </div>
 
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-8 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage === "Team"
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
-                    }`}
-                    onClick={() => navigate("/administrative")}>
-                    <FaStickyNote
-                         className={`${
-                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
-                         }`}
-                    />
-                    {buka && (
-                         <motion.p
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}>
-                              Administrative
-                         </motion.p>
-                    )}
-               </div>
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-8 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage === "Team"
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
-                    }`}
-                    onClick={() => navigate("/competitions")}>
-                    <FaTrophy
-                         className={`${
-                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
-                         }`}
-                    />
-                    {buka && (
-                         <motion.p
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}>
-                              Competitions
-                         </motion.p>
-                    )}
-               </div>
+            {/* Settings Section */}
+            <div className="mt-5">
+                <p className={`text-white px-4 mb-2 ${buka ? "text-base" : "text-xs"}`}>Settings</p>
 
-               {/* Menu "Data" */}
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-4 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage.startsWith("Data")
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
+                {/* Data Menu */}
+                <div
+                    className={`button-sidebar flex items-center p-4 w-4/5 mx-auto text-base hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${
+                        typeof currentPage === "string" && currentPage.startsWith("Data") ? "bg-[#121113] text-white" : "text-[#BFBFBF]"
                     }`}
-                    onClick={toggleDataDropdown}>
-                    <FaChartBar
-                         className={`${
-                              buka ? "mr-4" : "mx-auto"
-                         } text-base md:text-2xl`}
-                    />
+                    onClick={buka ? toggleDataDropdown : undefined}
+                >
+                    <FaChartBar className={`${buka ? "mr-4" : "mx-auto"} text-base`} />
                     {buka && (
-                         <motion.div
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}
-                              className="flex items-center w-full justify-between">
-                              <p>Data</p>
-                              {dataDropdownOpen ? (
-                                   <FaChevronUp />
-                              ) : (
-                                   <FaChevronDown />
-                              )}
-                         </motion.div>
+                        <motion.div
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                            className="flex items-center w-full justify-between"
+                        >
+                            <p>Data</p>
+                            {dataDropdownOpen ? <FaChevronUp /> : <FaChevronDown />}
+                        </motion.div>
                     )}
-               </div>
+                </div>
 
-               {/* Dropdown "Data" */}
-               <AnimatePresence>
+                {/* Data Dropdown */}
+                <AnimatePresence>
                     {buka && dataDropdownOpen && (
-                         <motion.div
-                              initial={{ height: 0 }}
-                              animate={{ height: "100px" }}
-                              exit={{ height: 0 }}
-                              transition={{ duration: 0.5 }}
-                              className="z-0 overflow-x-hidden overflow-y-auto mx-8 scrollbar-thin">
-                              <div
-                                   className={`sub-menu my-1 pl-8 p-2 flex items-center justify-start hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                                        currentPage === "Data Wilayah"
-                                             ? "bg-gray-700 text-white"
-                                             : "text-[#BFBFBF]"
-                                   }`}
-                                   onClick={() =>
-                                        handleClickMenu("Data Wilayah")
-                                   }>
-                                   <FaMap className="mr-2" />
-                                   <p>Data Wilayah</p>
-                              </div>
-                              <div
-                                   className={`sub-menu my-1 pl-8 p-2 flex items-center justify-start hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                                        currentPage === "Data Penduduk"
-                                             ? "bg-gray-700 text-white"
-                                             : "text-[#BFBFBF]"
-                                   }`}
-                                   onClick={() =>
-                                        handleClickMenu("Data Penduduk")
-                                   }>
-                                   <FaUsers className="mr-2" />
-                                   <p>Data Penduduk</p>
-                              </div>
-                         </motion.div>
+                        <motion.div
+                            initial={{ height: 0 }}
+                            animate={{ height: "100px" }}
+                            exit={{ height: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="z-0 overflow-x-hidden overflow-y-auto mx-8 scrollbar-thin"
+                        >
+                            <div
+                                className={`sub-menu my-1 pl-8 p-2 flex items-center justify-start hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${
+                                    currentPage === "DataAdministrative" ? "bg-[#121113] text-white" : "text-[#BFBFBF]"
+                                }`}
+                                onClick={() => handleClickMenu("DataAdministrative")}
+                            >
+                                <FaMap className="mr-2" />
+                                <p>Administrative</p>
+                            </div>
+                            <div
+                                className={`sub-menu my-1 pl-8 p-2 flex items-center justify-start hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${
+                                    currentPage === "DataCompetitions" ? "bg-[#121113] text-white" : "text-[#BFBFBF]"
+                                }`}
+                                onClick={() => handleClickMenu("DataCompetitions")}
+                            >
+                                <FaUsers className="mr-2" />
+                                <p>Competitions</p>
+                            </div>
+                        </motion.div>
                     )}
-               </AnimatePresence>
+                </AnimatePresence>
+            </div>
 
-               {/* Menu "Sign Out" */}
-               <div
-                    className={`button-sidebar flex items-center p-4 mt-4 ${
-                         buka ? "ml-6" : "mx-auto"
-                    } text-base md:text-2xl hover:bg-gray-700 active:bg-gray-600 cursor-pointer ${
-                         currentPage === "Sign Out"
-                              ? "bg-gray-700 text-white"
-                              : "text-[#BFBFBF]"
-                    }`}
+            {/* Account Section */}
+            <div className="mt-auto">
+                <p className={`text-white px-4 mb-2 ${buka ? "text-base" : "text-xs"}`}>Account</p>
+
+                {/* Sign Out Menu */}
+                <div className={`button-sidebar flex items-center p-4 w-4/5 mx-auto text-base hover:bg-[#121113] active:bg-[#121113] cursor-pointer ${currentPage === "Sign Out" ? "bg-[#121113] text-white" : "text-[#d62727]"}`}
                     onClick={() => handleClickMenu("Sign Out")}>
-                    <FaSignOutAlt
-                         className={`${
-                              buka ? "mr-4" : "mx-auto text-base md:text-2xl"
-                         }`}
-                    />
+                    <FaSignOutAlt className={`${buka ? "mr-4" : "mx-auto text-base"}`} />
                     {buka && (
-                         <motion.p
-                              initial={{ x: -20, opacity: 0 }}
-                              animate={{ x: 0, opacity: 1 }}
-                              transition={{ duration: 0.5 }}
-                              className="h-9 overflow-hidden">
-                              Sign Out
-                         </motion.p>
+                        <motion.p initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }}>
+                            Sign Out
+                        </motion.p>
                     )}
-               </div>
+                </div>
+            </div>
 
-               {showConfirm && (
-                    <CustomConfirm
-                         message="Apakah Anda yakin ingin keluar?"
-                         onConfirm={handleConfirm}
-                         onCancel={handleCancel}
-                    />
-               )}
-               {logoutAlert && (
-                    <CustomAlert
-                         message="Anda telah keluar"
-                         onClose={handleCloseAlert}
-                    />
-               )}
-          </motion.div>
-     );
+            {/* Confirmation and Alerts */}
+            {showConfirm && <CustomConfirm message="Apakah Anda yakin ingin keluar?" onConfirm={handleConfirm} onCancel={handleCancel} />}
+            {logoutAlert && <CustomAlert message="Anda telah keluar" onClose={handleCloseAlert} />}
+        </motion.div>
+    );
 };
 
 export default Sidebar;

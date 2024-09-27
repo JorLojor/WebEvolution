@@ -27,7 +27,6 @@ const Navbar = () => {
             setIsLogin(false);
         }
     }, [user]);
-    console.log(isLogin);
 
     return (
         <Fragment>
@@ -78,7 +77,7 @@ const Navbar = () => {
                         {isLogin ?
                             <div className="flex items-center">
                                 <p className="py-2 text-center md:text-left hover:cursor-pointer" onClick={handleLogout}>Logout</p>
-                                <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/dahboard'))}>Dashboard</p>
+                                <p className="pl-8 hover:cursor-pointer" onClick={e => (navigate('/dashboard'))}>Dashboard</p>
                             </div>
                             :
                             <div className="flex items-center">

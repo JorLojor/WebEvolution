@@ -9,50 +9,42 @@ import App from "./App";
 import Login from "./auth/Login";
 import Register from "./auth/Register";
 import NotFound from "./pages/NotFound";
-import Dashboard from "./pages/Dashboard";
-import Competitions from "./pages/Competitions";
-import MemberTeam from "./pages/MemberTeam";
-import Administrative from "./pages/Administrative";
-import Finalis from "./pages/Finalis";
+import Dashboard from "./layout/Layout";
 import { store, persistor } from "./store";
 
 const router = createBrowserRouter([
-     {
-          path: "*",
-          element: <NotFound />,
-     },
-     {
-          path: "/",
-          element: <App />,
-     },
-     {
-          path: "/login",
-          element: <Login />,
-     },
-     {
-          path: "/register",
-          element: <Register />,
-     },
-     {
-          path: "/dashboard",
-          element: <Dashboard />,
-     },
-     {
-          path: "/administrative",
-          element: <Administrative />,
-     },
-     {
-          path: "/competitions",
-          element: <Competitions />,
-     },
-     {
-          path: "/member",
-          element: <MemberTeam />,
-     },
-     {
-          path: "/finalis",
-          element: <Finalis />,
-     },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/competitions",
+    element: <Competitions />,
+  },
+  {
+    path: "/member",
+    element: <MemberTeam />,
+  },
+  {
+    path: "/finalis",
+    element: <Finalis />,
+  },
 ]);
 
 function Root() {

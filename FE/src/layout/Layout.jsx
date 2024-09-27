@@ -1,32 +1,38 @@
-import { Fragment } from "react";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { login, logout } from "../slice/userSlice";
-import Sidebar from "./Sidebar"
 
-function Layout({ children, nosidebar = false }) {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState();
-    const { loggedIn, user } = useSelector((state) => state.user);
-    const navigate = useNavigate();
+// Layout Component
+import { Fragment, useState } from "react";
+import Dashboard from "../pages/Dashboard";
+import Team from "../pages/MemberTeam";
+import Sidebar from "./Sidebar";
+import Header from "./Header";
+
+const Layout = ()=> {
+    const [currentPage, setCurrentPage] = useState('Dashboard');
+
+    const renderPage = () => {
+        switch (currentPage) {
+            case 'Dashboard':
+                return <Dashboard />;
+            case 'Team':
+                return <Team />;
+            default:
+                return <Dashboard />;
+        }
+    };
+
     return (
         <Fragment>
-            <div className="w-full max-w-max lg:max-w-screen-lg mx-auto flex pb-10">
-                <Sidebar
-                    isSidebarOpen={isSidebarOpen}
-                    setIsSidebarOpen={setIsSidebarOpen}
-                    nomenu={nosidebar}
-                />
-                {/* <div className="w-full">
-                    <Navbar setIsSidebarOpen={setIsSidebarOpen} /> */}
-                    {children}
-                {/* </div> */}
+            <div className="max-w-screen overflow-x-hidden">
+                <div className="bg-[#121113] flex pb-10 ml-[5rem]">
+                    <Sidebar currentPage={currentPage} setCurrentPage={setCurrentPage} />
+                    {/* <Header title={currentPage}></Header> */}
+                    <div className="w-[95%] mx-auto min-h-screen pt-5">
+                        {renderPage()}
+                    </div>
+                </div>
             </div>
         </Fragment>
-    )
+    );
 };
 
 export default Layout;

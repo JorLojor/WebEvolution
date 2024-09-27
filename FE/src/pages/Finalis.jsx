@@ -1,11 +1,10 @@
 import { Fragment } from "react";
-import Layout from "../layout/Layout"
 
 const Finalis = ()=>{
     return (
-        <Layout>
-            <h1>ini Finalis</h1>
-        </Layout>
+        <Fragment>
+            <h1 className="text-white">ini Finalis</h1>
+        </Fragment>
     )
 };
 

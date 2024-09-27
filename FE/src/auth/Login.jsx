@@ -11,6 +11,7 @@ const Login = () => {
      const [password, setPassword] = useState("");
      const [showPassword, setShowPassword] = useState(false);
      const [error, setError] = useState("");
+     const [isLoading, setIsLoading] = useState(false); 
      const dispatch = useDispatch();
      const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const Login = () => {
                return;
           }
 
+          setIsLoading(true);
           try {
                const response = await fetch(
                     "http://localhost:3987/api/register/login",
@@ -47,7 +49,6 @@ const Login = () => {
                if (response.status === 200) {
                     dispatch(login({ token: data.data }));
                     alert("Login berhasil!");
-
                     navigate("/dashboard");
                } else {
                     setError(data.message || "Email atau Password salah.");
@@ -55,6 +56,8 @@ const Login = () => {
           } catch (error) {
                console.error(error);
                setError("Terjadi kesalahan saat login.");
+          } finally {
+               setIsLoading(false); 
           }
      };
 
@@ -118,9 +121,7 @@ const Login = () => {
                                                   ? "text-black"
                                                   : "text-[#616161]"
                                         }`}
-                                        type={
-                                             showPassword ? "text" : "password"
-                                        }
+                                        type={showPassword ? "text" : "password"}
                                         placeholder="Password"
                                         value={password}
                                         onChange={(e) =>
@@ -148,8 +149,10 @@ const Login = () => {
                                              ? "bg-[black]"
                                              : "bg-[#616161]"
                                    } text-white h-[87px] w-[80%] ml-[10%] rounded-[10px] mt-7 text-[20px] font-medium`}
-                                   onClick={handleLogin}>
-                                   Masuk
+                                   onClick={handleLogin}
+                                   disabled={isLoading} 
+                              >
+                                   {isLoading ? "Loading..." : "Masuk"}
                               </button>
                          </div>
                          <p className="text-center mt-4">
