@@ -295,16 +295,6 @@
 import propTypes from "prop-types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import {
-     FaMap,
-     FaDatabase,
-     FaUsers,
-     FaSignOutAlt,
-     FaChevronDown,
-     FaChevronUp,
-     FaChartBar,
-     FaSitemap,
-} from "react-icons/fa";
 import CustomAlert from "../components/CustomAlert";
 import CustomConfirm from "../components/CustomConfirm";
 import { FaMap, FaUsers, FaSignOutAlt, FaChevronDown, FaChevronUp, FaChartBar } from "react-icons/fa";
