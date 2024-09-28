@@ -19,6 +19,74 @@ export interface Register {
      Status_Registrasi: number;
      token: string;
 }
+// fungsi buat mengecek apakah email sudah terdaftar atau belum mengembalikan number
+export const checkEmail = async (Email: string): Promise<number> => {
+     const [dataRegister]: any = await DBconnection.query(
+          "SELECT * FROM Register WHERE Email = ?",
+          [Email]
+     );
+     if (dataRegister.length > 0) {
+          return 401;
+     } else {
+          return 200;
+     }
+};
+
+// fungsi buat cek apakah Nama_Team sudah terdaftar atau belum
+export const checkNamaTeam = async (Nama_Team: string): Promise<number> => {
+     const [dataRegister]: any = await DBconnection.query(
+          "SELECT * FROM Register WHERE Nama_Team = ?",
+          [Nama_Team]
+     );
+     if (dataRegister.length > 0) {
+          return 401;
+     } else {
+          return 200;
+     }
+};
+
+// fungsi buat cek nomor induk mahasiswa sudah terdaftar atau belum
+export const checkNIM = async (
+     Nomor_Induk_Mahasiswa: number
+): Promise<number> => {
+     const [dataRegister]: any = await DBconnection.query(
+          "SELECT * FROM Register WHERE Nomor_Induk_Mahasiswa = ?",
+          [Nomor_Induk_Mahasiswa]
+     );
+     if (dataRegister.length > 0) {
+          return 401;
+     } else {
+          return 200;
+     }
+};
+
+// fungsi buat cek nomor telfon sudah terdaftar atau belum
+export const checkNomorTelfon = async (
+     Nomor_Telfon: string
+): Promise<number> => {
+     const [dataRegister]: any = await DBconnection.query(
+          "SELECT * FROM Register WHERE Nomor_Telfon = ?",
+          [Nomor_Telfon]
+     );
+     if (dataRegister.length > 0) {
+          return 401;
+     } else {
+          return 200;
+     }
+};
+
+// fungsi buat cek nama sudah terdaftar atau belum
+export const checkNama = async (Nama: string): Promise<number> => {
+     const [dataRegister]: any = await DBconnection.query(
+          "SELECT * FROM Register WHERE Nama = ?",
+          [Nama]
+     );
+     if (dataRegister.length > 0) {
+          return 401;
+     } else {
+          return 200;
+     }
+};
 
 // fungsi untuk cek Status_Registrasi
 export const checkStatusRegistrasiWithExpectedStatus = async (
