@@ -20,7 +20,7 @@ export interface Register {
      token: string;
 }
 // fungsi buat mengecek apakah email sudah terdaftar atau belum mengembalikan number
-export const checkEmail = async (Email: string): Promise<number> => {
+export const checkEmail = async (Email: string): Promise<number | null> => {
      const [dataRegister]: any = await DBconnection.query(
           "SELECT * FROM Register WHERE Email = ?",
           [Email]
