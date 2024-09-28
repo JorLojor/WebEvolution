@@ -28,7 +28,7 @@ const Register = () => {
      const [confirmPassword, setConfirmPassword] = useState("");
      const [showPassword, setShowPassword] = useState(false);
      const [error, setError] = useState("");
-     const [isLoading, setIsLoading] = useState(false); 
+     const [isLoading, setIsLoading] = useState(false);
      const navigate = useNavigate();
 
      const lombaOptions = [
@@ -51,7 +51,7 @@ const Register = () => {
                Nomor_Telfon: nomorTelfon,
                Nama_Instansi: instansi,
                Nama_Team: team,
-               Nomor_Induk_Mahasiswa: nim,
+               Nomor_Induk_Mahasiswa: parseInt(nim),
                Email: email,
                Provinsi: provinsi,
                Kabupaten: kabupaten,
@@ -59,7 +59,7 @@ const Register = () => {
                Pilihan_Lomba: lomba,
           };
 
-          setIsLoading(true); 
+          setIsLoading(true);
           try {
                const response = await fetch(
                     "http://localhost:3987/api/register",
@@ -84,7 +84,7 @@ const Register = () => {
                console.error(error);
                setError("Terjadi kesalahan pada proses registrasi.");
           } finally {
-               setIsLoading(false); 
+               setIsLoading(false);
           }
      };
 
@@ -96,10 +96,11 @@ const Register = () => {
           <Fragment>
                <div className="flex items-center">
                     <div
-                         className={`${isMobile
+                         className={`${
+                              isMobile
                                    ? "w-screen px-4 flex flex-col justify-center items-center min-h-screen py-5"
                                    : "w-1/2 min-h-screen py-5 flex-1"
-                              }`}>
+                         }`}>
                          <h1 className="text-center text-3xl font-semibold">
                               Selamat Datang
                          </h1>
@@ -110,10 +111,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaUser className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${nama
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             nama
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Nama Ketua"
                                         value={nama}
@@ -128,11 +130,12 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaAddressCard className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${nim
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             nim
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
-                                        type="text"
+                                        }`}
+                                        type="number"
                                         placeholder="Nomor Induk Mahasiswa (NIM) / NISN Ketua"
                                         value={nim}
                                         onChange={(e) => setNim(e.target.value)}
@@ -144,10 +147,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaUser className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${nomorTelfon
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             nomorTelfon
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Nomor Telepon"
                                         value={nomorTelfon}
@@ -162,10 +166,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <HiAcademicCap className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${instansi
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             instansi
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Nama Instansi"
                                         value={instansi}
@@ -180,10 +185,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaUserGroup className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${team
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             team
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Nama Tim"
                                         value={team}
@@ -198,10 +204,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <MdEmail className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${email
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             email
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Email"
                                         value={email}
@@ -216,10 +223,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
                                    <FaLock className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${password
+                                        className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${
+                                             password
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type={
                                              showPassword ? "text" : "password"
                                         }
@@ -247,10 +255,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px] relative">
                                    <FaLock className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${password
+                                        className={`h-full w-full pl-4 pr-12 border-none outline-none text-[20px] font-normal ${
+                                             password
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type={
                                              showPassword ? "text" : "password"
                                         }
@@ -278,10 +287,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaMapMarked className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${provinsi
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             provinsi
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Provinsi"
                                         value={provinsi}
@@ -296,10 +306,11 @@ const Register = () => {
                               <div className="flex items-center h-[60px] w-[80%] border-2 border-gray-300 rounded-[10px]">
                                    <FaMapMarked className="ml-4" />
                                    <input
-                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${kabupaten
+                                        className={`h-full w-full pl-4 border-none outline-none text-[20px] font-normal ${
+                                             kabupaten
                                                   ? "text-black"
                                                   : "text-[#616161]"
-                                             }`}
+                                        }`}
                                         type="text"
                                         placeholder="Kabupaten / Kota"
                                         value={kabupaten}
@@ -336,19 +347,21 @@ const Register = () => {
 
                          <div className="w-full">
                               <button
-                                   className={`${password && nama
+                                   className={`${
+                                        password && nama
                                              ? "bg-[black]"
                                              : "bg-[#616161]"
-                                        }  text-white h-[87px] w-[80%] ml-[10%] rounded-[10px] mt-7 text-[20px] font-medium`}
+                                   }  text-white h-[87px] w-[80%] ml-[10%] rounded-[10px] mt-7 text-[20px] font-medium`}
                                    onClick={handleRegister}
-                                   disabled={isLoading} >
+                                   disabled={isLoading}>
                                    {isLoading ? "Loading..." : "Daftar"}
                               </button>
                          </div>
                     </div>
                     <div
-                         className={`${isMobile ? "hidden" : "w-1/2"
-                              } flex-1 min-h-screen bg-black flex justify-center items-center`}>
+                         className={`${
+                              isMobile ? "hidden" : "w-1/2"
+                         } flex-1 min-h-screen bg-black flex justify-center items-center`}>
                          <img src={Logo} alt="Logo" className="w-1/2" />
                     </div>
                </div>
