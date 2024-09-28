@@ -47,10 +47,10 @@ export const uploadDataAdministrative = async (
                hasil = 200;
           }
 
-          await DBconnection.query(
-               `UPDATE Register SET Status_Registrasi = 1 WHERE RegistrationID = ?`,
-               [RegistrationID]
-          );
+          // await DBconnection.query(
+          //      `UPDATE Register SET Status_Registrasi = 1 WHERE RegistrationID = ?`,
+          //      [RegistrationID]
+          // );
 
           return hasil;
      } else {
