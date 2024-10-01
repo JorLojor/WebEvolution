@@ -104,6 +104,8 @@ export const getTeamByIDController = async (req: Request, res: Response) => {
           const RegistrationID = decoded.RegistrationID;
 
           const team = await getTeamByID(RegistrationID);
+          // const registrasi = await checkStatusRegistrasiWithExpectedStatus(
+          console.log(team);
           if (team) {
                res.json(team);
           } else {
