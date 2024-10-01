@@ -186,8 +186,27 @@ export const getSingleRegisterController = async (
      res: Response
 ) => {
      try {
-          const { id } = req.params;
-          const singleRegister = await getSingleRegister(Number(id)); // Pastikan id adalah number
+          const authHeader = req.headers.authorization;
+          if (!authHeader || !authHeader.startsWith("Bearer ")) {
+               return res.status(401).json({
+                    message: "Token tidak ditemukan atau tidak valid",
+               });
+          }
+
+          const token = authHeader.split(" ")[1];
+          const decoded = jwt.verify(
+               token,
+               process.env.SECRET_KEY as string
+          ) as { RegistrationID: number };
+          if (!decoded || !decoded.RegistrationID) {
+               return res.status(400).json({ message: "Token tidak valid" });
+          }
+
+          const RegistrationID = decoded.RegistrationID;
+          const singleRegister = await getSingleRegister(
+               Number(RegistrationID)
+          );
+          console.log(singleRegister);
           if (singleRegister) {
                res.json(singleRegister);
           } else {

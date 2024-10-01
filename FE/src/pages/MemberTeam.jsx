@@ -14,6 +14,7 @@ const MemberTeam = () => {
           NIM_Anggota2: "",
      });
 
+     const [registerData, setRegisterData] = useState(null);
      const [loading, setLoading] = useState(false);
 
      const handleChange = (e) => {
@@ -21,6 +22,49 @@ const MemberTeam = () => {
                ...formData,
                [e.target.name]: e.target.value,
           });
+     };
+
+     // Function to get single register data
+     const getRegister = async () => {
+          if (!tokenne) {
+               console.error("Token tidak tersedia, silakan login kembali.");
+               return;
+          }
+
+          console.log("tokenne", tokenne);
+
+          try {
+               setLoading(true); // Set loading state
+               const response = await fetch(
+                    "http://localhost:3987/api/register/single",
+                    {
+                         method: "GET",
+                         headers: {
+                              Authorization: `Bearer ${tokenne}`,
+                         },
+                    }
+               );
+
+               const result = await response.json();
+               console.log("result", result);
+
+               if (response.ok) {
+                    setRegisterData(result); // Store register data
+               } else {
+                    console.error(
+                         "Error fetching register data:",
+                         result.message
+                    );
+                    alert(
+                         "Gagal menampilkan data registrasi: " + result.message
+                    );
+               }
+          } catch (error) {
+               console.error("Error during register request:", error);
+               alert("Terjadi kesalahan saat menampilkan data registrasi.");
+          } finally {
+               setLoading(false); // Remove loading state
+          }
      };
 
      const handGetTeamById = async () => {
@@ -42,10 +86,8 @@ const MemberTeam = () => {
                );
 
                const result = await response.json();
-               console.log("result", result);
 
                if (response.ok) {
-                    console.log("Team data fetched successfully:", result);
                     dispatch(setTeamData(result)); // Store in Redux
                } else {
                     console.error("Error fetching team data:", result.message);
@@ -68,6 +110,7 @@ const MemberTeam = () => {
           }
 
           try {
+               console.log(tokenne);
                const response = await fetch(
                     "http://localhost:3987/api/team/add/member",
                     {
@@ -95,9 +138,10 @@ const MemberTeam = () => {
           }
      };
 
-     // UseEffect to fetch team data on component mount
+     // UseEffect to fetch team data and register data on component mount
      useEffect(() => {
           handGetTeamById();
+          getRegister();
      }, []);
 
      return (
@@ -105,11 +149,12 @@ const MemberTeam = () => {
                <h1 className="text-white bg-[#222725] p-4 rounded-lg">
                     Identitas Tim
                </h1>
+
                <div className="bg-[#222725] mt-8 p-4 rounded-md">
-                    {/* Display fetched team data if available */}
+                    {/* Display fetched register data */}
                     {loading ? (
-                         <p className="text-white">Loading team data...</p>
-                    ) : teamData ? (
+                         <p className="text-white">Loading register data...</p>
+                    ) : registerData ? (
                          <>
                               <div className="form-group flex items-center ">
                                    <p className="text-white w-1/5 text-sm">
@@ -118,62 +163,7 @@ const MemberTeam = () => {
                                    <input
                                         type="text"
                                         value={
-                                             teamData.Nama_Tim ||
-                                             "Tidak tersedia"
-                                        }
-                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                                        disabled
-                                   />
-                              </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Email
-                                   </p>
-                                   <input
-                                        type="text"
-                                        value={
-                                             teamData.Email || "Tidak tersedia"
-                                        }
-                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                                        disabled
-                                   />
-                              </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Instansi
-                                   </p>
-                                   <input
-                                        type="text"
-                                        value={
-                                             teamData.Instansi ||
-                                             "Tidak tersedia"
-                                        }
-                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                                        disabled
-                                   />
-                              </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Provinsi
-                                   </p>
-                                   <input
-                                        type="text"
-                                        value={
-                                             teamData.Provinsi ||
-                                             "Tidak tersedia"
-                                        }
-                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                                        disabled
-                                   />
-                              </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Kabupaten
-                                   </p>
-                                   <input
-                                        type="text"
-                                        value={
-                                             teamData.Kabupaten ||
+                                             registerData.Nama_Team ||
                                              "Tidak tersedia"
                                         }
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
@@ -187,7 +177,7 @@ const MemberTeam = () => {
                                    <input
                                         type="text"
                                         value={
-                                             teamData.Nama_Anggota1 ||
+                                             registerData.Nama ||
                                              "Tidak tersedia"
                                         }
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
@@ -196,12 +186,68 @@ const MemberTeam = () => {
                               </div>
                               <div className="form-group flex items-center mt-3">
                                    <p className="text-white w-1/5 text-sm">
-                                        NIM Ketua
+                                        Email
                                    </p>
                                    <input
                                         type="text"
                                         value={
-                                             teamData.NIM_Anggota1 ||
+                                             registerData.Email ||
+                                             "Tidak tersedia"
+                                        }
+                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                                        disabled
+                                   />
+                              </div>
+                              <div className="form-group flex items-center mt-3">
+                                   <p className="text-white w-1/5 text-sm">
+                                        Nomor Telepon
+                                   </p>
+                                   <input
+                                        type="text"
+                                        value={
+                                             registerData.Nomor_Telfon ||
+                                             "Tidak tersedia"
+                                        }
+                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                                        disabled
+                                   />
+                              </div>
+                              <div className="form-group flex items-center mt-3">
+                                   <p className="text-white w-1/5 text-sm">
+                                        Instansi
+                                   </p>
+                                   <input
+                                        type="text"
+                                        value={
+                                             registerData.Nama_Instansi ||
+                                             "Tidak tersedia"
+                                        }
+                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                                        disabled
+                                   />
+                              </div>
+                              <div className="form-group flex items-center mt-3">
+                                   <p className="text-white w-1/5 text-sm">
+                                        Provinsi
+                                   </p>
+                                   <input
+                                        type="text"
+                                        value={
+                                             registerData.Provinsi ||
+                                             "Tidak tersedia"
+                                        }
+                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                                        disabled
+                                   />
+                              </div>
+                              <div className="form-group flex items-center mt-3">
+                                   <p className="text-white w-1/5 text-sm">
+                                        Kabupaten
+                                   </p>
+                                   <input
+                                        type="text"
+                                        value={
+                                             registerData.Kabupaten ||
                                              "Tidak tersedia"
                                         }
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
@@ -210,8 +256,12 @@ const MemberTeam = () => {
                               </div>
                          </>
                     ) : (
-                         <p className="text-white">Tidak ada data tim.</p>
+                         <p className="text-white">
+                              Tidak ada data registrasi.
+                         </p>
                     )}
+
+                    {/* Display fetched team data */}
 
                     {/* Form for adding team members */}
                     <div className="form-group flex items-center mt-3">
