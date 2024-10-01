@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTeamData, setTeamError } from "../slice/teamSlice";
