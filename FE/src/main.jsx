@@ -14,6 +14,7 @@ import Competitions from "./pages/Competitions";
 import MemberTeam from "./pages/MemberTeam";
 import Administrative from "./pages/Administrative";
 import Finalis from "./pages/Finalis";
+import DetailCompetitions from "./pages/DetailCompetitions";
 import { store, persistor } from "./store";
 
 const router = createBrowserRouter([
@@ -52,6 +53,22 @@ const router = createBrowserRouter([
      {
           path: "/finalis",
           element: <Finalis />,
+     },
+     {
+          path: "/business",
+          element: <DetailCompetitions />,
+     },
+     {
+          path: "/web",
+          element: <DetailCompetitions />,
+     },
+     {
+          path: "/poster",
+          element: <DetailCompetitions />,
+     },
+     {
+          path: "/uiux",
+          element: <DetailCompetitions />,
      },
 ]);
 

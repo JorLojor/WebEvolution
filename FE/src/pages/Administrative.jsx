@@ -1,7 +1,6 @@
 
 import { useState, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
-// import css
 import "./loading.css";
 
 const Administrative = () => {
@@ -18,46 +17,45 @@ const Administrative = () => {
      const [uploadSuccess, setUploadSuccess] = useState(false);
      const [isLoading, setIsLoading] = useState(false);
 
-     useEffect(() => {
-          const checkRegistrationStatus = async () => {
-               if (!tokenne) {
-                    console.error(
-                         "Token tidak tersedia, silakan login kembali."
-                    );
-                    return;
-               }
+     const checkRegistrationStatus = async () => {
+          if (!tokenne) {
+               console.error(
+                    "Token tidak tersedia, silakan login kembali."
+               );
+               return;
+          }
 
-               try {
-                    const response = await fetch(
-                         "http://localhost:3987/api/administrative/cek-administrasi",
-                         {
-                              method: "GET",
-                              headers: {
-                                   Authorization: `Bearer ${tokenne}`,
-                              },
-                         }
-                    );
-
-                    const result = await response.json();
-
-                    if (response.ok) {
-                         setIsRegistered(result.exists);
-                    } else {
-                         console.error(
-                              "Error checking registration status:",
-                              result.message
-                         );
+          try {
+               const response = await fetch(
+                    "http://localhost:3987/api/administrative/cek-administrasi",
+                    {
+                         method: "GET",
+                         headers: {
+                              Authorization: `Bearer ${tokenne}`,
+                         },
                     }
-               } catch (error) {
+               );
+
+               const result = await response.json();
+
+               if (response.ok) {
+                    setIsRegistered(result.exists);
+               } else {
                     console.error(
-                         "Error during registration status check:",
-                         error
+                         "Error checking registration status:",
+                         result.message
                     );
                }
-          };
-
+          } catch (error) {
+               console.error(
+                    "Error during registration status check:",
+                    error
+               );
+          }
+     };
+     useEffect(() => {
           checkRegistrationStatus();
-     }, [tokenne]);
+     }, [tokenne, isRegistered]);
 
      const handleFileChange = (e) => {
           setFiles({
@@ -96,7 +94,6 @@ const Administrative = () => {
                const result = await response.json();
 
                if (response.ok) {
-                    console.log("Documents uploaded successfully:", result);
                     alert("Dokumen berhasil diunggah.");
                     setUploadSuccess(true);
                     setFiles({
@@ -123,14 +120,14 @@ const Administrative = () => {
                          Upload Dokumen Administrasi
                     </h1>
 
-                    {isRegistered === null ? (
+                    {isLoading ? (
                          <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Memeriksa status registrasi...
                          </div>
                     ) : isRegistered ? (
                          <div className="alert alert-success text-white bg-[#222725] p-4 rounded-md">
                               Anda sudah terdaftar. Anda tidak bisa mengunggah
-                              dokumen lagi.
+                              dokumen lagi. Jika ada kendala harap hubungi panitia melalui contact person
                          </div>
                     ) : (
                          <div className="alert alert-warning text-white bg-[#222725] p-4 rounded-md">
@@ -162,7 +159,7 @@ const Administrative = () => {
                                              ? undefined
                                              : ""
                                    }
-                                   disabled={isRegistered} // Menonaktifkan input jika sudah terdaftar
+                                   disabled={isRegistered}
                               />
                          </div>
 
@@ -178,7 +175,7 @@ const Administrative = () => {
                                    value={
                                         files.Bukti_post_Twibon ? undefined : ""
                                    }
-                                   disabled={isRegistered} // Menonaktifkan input jika sudah terdaftar
+                                   disabled={isRegistered} 
                               />
                          </div>
 
@@ -194,14 +191,14 @@ const Administrative = () => {
                                    value={
                                         files.Bukti_Pembayaran ? undefined : ""
                                    }
-                                   disabled={isRegistered} // Menonaktifkan input jika sudah terdaftar
+                                   disabled={isRegistered}
                               />
                          </div>
 
                          <button
                               type="submit"
-                              className="btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4"
-                              disabled={isRegistered} // Menonaktifkan tombol jika sudah terdaftar
+                              className={` ${isRegistered ? 'hidden' : 'block'} btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4`}
+                              disabled={isRegistered} 
                          >
                               Upload
                          </button>

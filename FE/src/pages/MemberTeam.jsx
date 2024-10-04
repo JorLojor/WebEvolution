@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTeamData, setTeamError } from "../slice/teamSlice";
@@ -13,6 +12,8 @@ const MemberTeam = () => {
           NIM_Anggota1: "",
           Nama_Anggota2: "",
           NIM_Anggota2: "",
+          Nama_Anggota3: "",
+          NIM_Anggota3: "",
      });
 
      const [registerData, setRegisterData] = useState(null);
@@ -25,17 +26,14 @@ const MemberTeam = () => {
           });
      };
 
-     // Function to get single register data
      const getRegister = async () => {
           if (!tokenne) {
                console.error("Token tidak tersedia, silakan login kembali.");
                return;
           }
 
-          console.log("tokenne", tokenne);
-
           try {
-               setLoading(true); // Set loading state
+               setLoading(true);
                const response = await fetch(
                     "http://localhost:3987/api/register/single",
                     {
@@ -47,24 +45,18 @@ const MemberTeam = () => {
                );
 
                const result = await response.json();
-               console.log("result", result);
 
                if (response.ok) {
-                    setRegisterData(result); // Store register data
+                    setRegisterData(result);
                } else {
-                    console.error(
-                         "Error fetching register data:",
-                         result.message
-                    );
-                    alert(
-                         "Gagal menampilkan data registrasi: " + result.message
-                    );
+                    console.error("Error fetching register data:", result.message);
+                    alert("Gagal menampilkan data registrasi: " + result.message);
                }
           } catch (error) {
                console.error("Error during register request:", error);
                alert("Terjadi kesalahan saat menampilkan data registrasi.");
           } finally {
-               setLoading(false); // Remove loading state
+               setLoading(false);
           }
      };
 
@@ -75,7 +67,7 @@ const MemberTeam = () => {
           }
 
           try {
-               setLoading(true); // Set loading state
+               setLoading(true);
                const response = await fetch(
                     "http://localhost:3987/api/team/getByID",
                     {
@@ -89,21 +81,30 @@ const MemberTeam = () => {
                const result = await response.json();
 
                if (response.ok) {
-                    dispatch(setTeamData(result)); // Store in Redux
+                    dispatch(setTeamData(result));
+                    setFormData({
+                         Nama_Anggota1: result.Nama_Anggota1 || "",
+                         NIM_Anggota1: result.NIM_Anggota1 || "",
+                         Nama_Anggota2: result.Nama_Anggota2 || "",
+                         NIM_Anggota2: result.NIM_Anggota2 || "",
+                         Nama_Anggota3: "",
+                         NIM_Anggota3: "",
+                    });
                } else {
                     console.error("Error fetching team data:", result.message);
                     alert("Gagal menampilkan data tim: " + result.message);
-                    dispatch(setTeamError(result.message)); // Store error in Redux
+                    dispatch(setTeamError(result.message));
                }
           } catch (error) {
                console.error("Error during show member request:", error);
                alert("Terjadi kesalahan saat menampilkan anggota tim.");
                dispatch(setTeamError(error.message));
           } finally {
-               setLoading(false); // Remove loading state
+               setLoading(false);
           }
      };
 
+     // Function to add a new member to the team
      const handlerAddMember = async () => {
           if (!tokenne) {
                console.error("Token tidak tersedia, silakan login kembali.");
@@ -111,7 +112,6 @@ const MemberTeam = () => {
           }
 
           try {
-               console.log(tokenne);
                const response = await fetch(
                     "http://localhost:3987/api/team/add/member",
                     {
@@ -127,7 +127,6 @@ const MemberTeam = () => {
                const result = await response.json();
 
                if (response.ok) {
-                    console.log("Team members updated successfully:", result);
                     alert("Anggota tim berhasil ditambahkan.");
                } else {
                     console.error("Error adding team members:", result.message);
@@ -139,7 +138,6 @@ const MemberTeam = () => {
           }
      };
 
-     // UseEffect to fetch team data and register data on component mount
      useEffect(() => {
           handGetTeamById();
           getRegister();
@@ -147,40 +145,27 @@ const MemberTeam = () => {
 
      return (
           <Fragment>
-               <h1 className="text-white bg-[#222725] p-4 rounded-lg">
-                    Identitas Tim
-               </h1>
+               <h1 className="text-white bg-[#222725] p-4 rounded-lg">Identitas Tim</h1>
 
                <div className="bg-[#222725] mt-8 p-4 rounded-md">
-                    {/* Display fetched register data */}
                     {loading ? (
                          <p className="text-white">Loading register data...</p>
                     ) : registerData ? (
                          <>
-                              <div className="form-group flex items-center ">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Nama Tim
-                                   </p>
+                              <div className="form-group flex items-center">
+                                   <p className="text-white w-1/5 text-sm">Nama Tim</p>
                                    <input
                                         type="text"
-                                        value={
-                                             registerData.Nama_Team ||
-                                             "Tidak tersedia"
-                                        }
+                                        value={registerData.Nama_Team || "Tidak tersedia"}
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
                                         disabled
                                    />
                               </div>
                               <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
-                                        Nama Ketua
-                                   </p>
+                                   <p className="text-white w-1/5 text-sm">Nama Ketua</p>
                                    <input
                                         type="text"
-                                        value={
-                                             registerData.Nama ||
-                                             "Tidak tersedia"
-                                        }
+                                        value={registerData.Nama || "Tidak tersedia"}
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
                                         disabled
                                    />
@@ -257,65 +242,78 @@ const MemberTeam = () => {
                               </div>
                          </>
                     ) : (
-                         <p className="text-white">
-                              Tidak ada data registrasi.
-                         </p>
+                         <p className="text-white">Tidak ada data registrasi.</p>
                     )}
-
-                    {/* Display fetched team data */}
 
                     {/* Form for adding team members */}
                     <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">
-                              Nama Anggota 2
-                         </p>
+                         <p className="text-white w-1/5 text-sm">Nama Anggota 1</p>
+                         <input
+                              type="text"
+                              name="Nama_Anggota1"
+                              value={teamData?.Nama_Anggota1}
+                              onChange={handleChange}
+                              className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={!!teamData?.Nama_Anggota1} 
+                         />
+                    </div>
+                    <div className="form-group flex items-center mt-3">
+                         <p className="text-white w-1/5 text-sm">NIM Anggota 1</p>
+                         <input
+                              type="number"
+                              name="NIM_Anggota1"
+                              value={teamData?.NIM_Anggota1}
+                              onChange={handleChange}
+                              className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={!!teamData?.NIM_Anggota1} 
+                         />
+                    </div>
+                    <div className="form-group flex items-center mt-3">
+                         <p className="text-white w-1/5 text-sm">Nama Anggota 2</p>
                          <input
                               type="text"
                               name="Nama_Anggota2"
-                              value={formData.Nama_Anggota2}
+                              value={teamData?.Nama_Anggota2}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={!!teamData?.Nama_Anggota2} 
                          />
                     </div>
                     <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">
-                              NIM Anggota 2
-                         </p>
+                         <p className="text-white w-1/5 text-sm">NIM Anggota 2</p>
                          <input
-                              type="text"
+                              type="number"
                               name="NIM_Anggota2"
-                              value={formData.NIM_Anggota2}
+                              value={teamData?.NIM_Anggota2}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={!!teamData?.NIM_Anggota2} // Disable if teamData exists
                          />
                     </div>
                     <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">
-                              Nama Anggota 3
-                         </p>
+                         <p className="text-white w-1/5 text-sm">Nama Anggota 3</p>
                          <input
                               type="text"
                               name="Nama_Anggota3"
-                              value={formData.Nama_Anggota3}
+                              value={teamData?.Nama_Anggota3}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
                          />
                     </div>
                     <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">
-                              NIM Anggota 3
-                         </p>
+                         <p className="text-white w-1/5 text-sm">NIM Anggota 3</p>
                          <input
-                              type="text"
+                              type="number"
                               name="NIM_Anggota3"
-                              value={formData.NIM_Anggota3}
+                              value={teamData?.NIM_Anggota3}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
                          />
                     </div>
                     <button
-                         className="btn btn-primary mt-3 bg-[#E4E6C3] p-4 rounded-lg"
-                         onClick={handlerAddMember}>
+                         className={`btn btn-primary mt-3 bg-[#E4E6C3] p-4 rounded-lg ${teamData?.NIM_Anggota1 ? 'hidden' : 'block'}`}
+                         onClick={handlerAddMember}
+                    >
                          Add Member
                     </button>
                </div>

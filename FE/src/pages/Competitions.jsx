@@ -18,45 +18,44 @@ const CompetitionUpload = () => {
      const [uploadSuccess, setUploadSuccess] = useState(false);
      const [isLoading, setIsLoading] = useState(false);
 
-     useEffect(() => {
-          const checkRegistrationStatus = async () => {
-               if (!tokenne) {
-                    console.error(
-                         "Token tidak tersedia, silakan login kembali."
-                    );
-                    return;
-               }
+     const checkRegistrationStatus = async () => {
+          if (!tokenne) {
+               console.error(
+                    "Token tidak tersedia, silakan login kembali."
+               );
+               return;
+          }
 
-               try {
-                    const response = await fetch(
-                         "http://localhost:3987/api/competitions/check",
-                         {
-                              method: "GET",
-                              headers: {
-                                   Authorization: `Bearer ${tokenne}`,
-                              },
-                         }
-                    );
-                    
-
-                    const result = await response.json();
-                    console.log(result);
-
-                    if (response.ok) {
-                         setIsVerified(true);
-                    } else {
-                         setIsVerified(false);
+          try {
+               const response = await fetch(
+                    "http://localhost:3987/api/competitions/check",
+                    {
+                         method: "GET",
+                         headers: {
+                              Authorization: `Bearer ${tokenne}`,
+                         },
                     }
-               } catch (error) {
-                    console.error(
-                         "Error during registration status check:",
-                         error
-                    );
-               }
-          };
+               );
+               
+               const result = await response.json();
+               console.log(result);
 
+               if (response.ok) {
+                    setIsVerified(true);
+               } else {
+                    setIsVerified(false);
+               }
+          } catch (error) {
+               console.error(
+                    "Error during registration status check:",
+                    error
+               );
+          }
+     };
+
+     useEffect(() => {
           checkRegistrationStatus();
-     }, [tokenne]);
+     }, [tokenne, isVerified]);
 
      const handleFileChange = (e) => {
           setFiles({
@@ -125,7 +124,7 @@ const CompetitionUpload = () => {
                          Upload Dokumen Kompetisi
                     </h1>
 
-                    {isVerified === null ? (
+                    {isLoading  ? (
                          <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Memeriksa status registrasi...
                          </div>
@@ -196,7 +195,7 @@ const CompetitionUpload = () => {
 
                          <button
                               type="submit"
-                              className="btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4"
+                              className={`${isVerified ? 'hidden' : 'block'} btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4`}
                               disabled={isVerified}>
                               Upload
                          </button>

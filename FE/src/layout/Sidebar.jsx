@@ -26,6 +26,7 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
         dispatch(logout());
         setLogoutAlert(true);
         setShowConfirm(false);
+        navigate('/');
     };
 
     const handleCancel = () => {
