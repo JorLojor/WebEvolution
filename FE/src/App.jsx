@@ -8,18 +8,19 @@ import Poster from "./assets/landing/poster.webp";
 import Ux from "./assets/landing/ux.webp";
 import Web from "./assets/landing/web.webp";
 import { useNavigate } from 'react-router-dom';
+import Footer from "./layout/Footer";
 
 function App() {
   const navigate = useNavigate();
 
   return (
     <Fragment>
-      <div className=" bg-black pb-48">
+      <div className=" bg-black pb-12">
         <div className="mx-8 min-h-screen">
           {/* Navbar */}
           <Navbar />
           {/* Welcome */}
-          <Welcome/>
+          <Welcome />
           {/* Introduction */}
           <div id="about" className="px-0 md:px-28 text-white mt-64">
             <div className="flex justify-between items-center">
@@ -38,25 +39,25 @@ function App() {
           {/* Lomba */}
           <h1 id="competitions" className="text-center text-white pt-48 pb-12 text-4xl font-bold">Jenis Lomba</h1>
           <div className="flex-wrap flex items-center justify-center md:justify-between text-black">
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={()=> {navigate('/business')}}>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/business') }}>
               <img className="w-[100%] mx-auto" src={BusinessPlan} alt="Logo Lomba" />
               <p className="pt-4 text-2xl font-semibold">Business Plan</p>
               <p className="">Mahasiswa</p>
               <p className="opacity-0">SMA/Sederajat</p>
             </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={()=> {navigate('/uiux')}}>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/uiux') }}>
               <img className="w-[100%] mx-auto" src={Ux} alt="Logo Lomba" />
               <p className="pt-4 text-2xl font-semibold">UI/UX</p>
               <p className="">Mahasiswa</p>
               <p className="">SMA/Sederajat</p>
             </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={()=> {navigate('/web')}}>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/web') }}>
               <img className="w-[100%] mx-auto" src={Web} alt="Logo Lomba" />
               <p className="pt-4 text-2xl font-semibold">Web Design</p>
               <p className="">Mahasiswa</p>
               <p className="opacity-0">SMA/Sederajat</p>
             </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={()=> {navigate('/poster')}}>
+            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/poster') }}>
               <img className="w-[100%] mx-auto" src={Poster} alt="Logo Lomba" />
               <p className="pt-4 text-2xl font-semibold">Poster Infografis</p>
               <p className="">SMA/Sederajat</p>
@@ -64,6 +65,9 @@ function App() {
             </div>
           </div>
           {/* Footer */}
+          <div className="pt-24">
+            <Footer />
+          </div>
         </div>
       </div>
     </Fragment>

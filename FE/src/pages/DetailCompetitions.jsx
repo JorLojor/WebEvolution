@@ -9,6 +9,7 @@ import Ketentuan2 from "../assets/ketentuan2.webp";
 import Ketentuan3 from "../assets/ketentuan3.webp";
 import Timeline from "../components/Timeline";
 import Navbar from "../layout/Navbar";
+import Footer from "../layout/Footer";
 import { useNavigate } from 'react-router-dom';
 
 const DetailCompetitions = () => {
@@ -65,8 +66,10 @@ const DetailCompetitions = () => {
                 <div className="w-full text-center md:text-left md:w-1/2 space-y-8 md:pr-8">
                     <h1 className="text-4xl md:text-6xl font-bold">{competition.title}</h1>
                     <div className="flex flex-col sm:flex-row mt-4 md:mt-12 gap-4 sm:gap-0 sm:space-x-8 w-fit mx-auto md:mx-0">
-                        <button className="bg-[#EFEFEF] text-black py-2 px-8 w-full sm:w-auto" onClick={() => {navigate('/register')}}>Register Now</button>
-                        <button className="bg-[#EFEFEF] text-black py-2 px-8 w-full sm:w-auto">Guidebook</button>
+                        <button className="bg-[#EFEFEF] text-black py-2 px-8 w-full sm:w-auto" onClick={() => { navigate('/register') }}>Register Now</button>
+                        <button className="bg-[#EFEFEF] text-black py-2 px-8 w-full sm:w-auto">
+                            <a href={"../assets/guidebook.pdf"} download="guidebook.pdf">Guidebook</a>
+                        </button>
                     </div>
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
@@ -139,6 +142,9 @@ const DetailCompetitions = () => {
                             <p className="text-black px-12 opacity-0">SMA/Sederajat</p>
                         </div>
                     }
+                </div>
+                <div className="pt-24">
+                    <Footer />
                 </div>
             </div>
         </Fragment>

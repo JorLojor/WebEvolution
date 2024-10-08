@@ -6,6 +6,7 @@ import Team from "../pages/MemberTeam";
 import Administrative from "../pages/Administrative";
 import Competitions from "../pages/Competitions";
 import Admin from "../pages/Admin";
+import Footer from "../layout/Footer";
 import Finalis from "../pages/Finalis";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
@@ -13,14 +14,16 @@ import Header from "./Header";
 const Layout = () => {
     const [currentPage, setCurrentPage] = useState('Dashboard');
     const { user } = useSelector((state) => state.user);
-    const navigate = useNavigate(); 
-    
-    useEffect(() => {
-            const currentTime = new Date().toLocaleTimeString();
+    const navigate = useNavigate();
 
-            if (!user) {
-                navigate("/login");
-            }
+    useEffect(() => {
+        const currentTime = new Date().toLocaleTimeString();
+        if (!user) {
+            navigate("/login");
+        }
+        if (user.token === "admin@admin.com") {
+            setCurrentPage("Admin");
+        }
     }, [user, navigate]);
 
     const renderPage = () => {
@@ -52,6 +55,9 @@ const Layout = () => {
                         {renderPage()}
                     </div>
                 </div>
+                    <div className="pb-12 bg-[#121113]">
+                        <Footer />
+                    </div>
             </div>
         </Fragment>
     );
