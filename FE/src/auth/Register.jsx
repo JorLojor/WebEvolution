@@ -94,12 +94,12 @@ const Register = () => {
 
      return (
           <Fragment>
-               <div className="flex items-center">
+               <div className="flex items-center bg-black">
                     <div
                          className={`${
                               isMobile
-                                   ? "w-screen px-4 flex flex-col justify-center items-center min-h-screen py-5"
-                                   : "w-1/2 min-h-screen py-5 flex-1"
+                                   ? "w-screen px-4 flex flex-col justify-center items-center min-h-screen py-5 bg-white"
+                                   : "w-1/2 min-h-screen py-5 flex-1 bg-white"
                          }`}>
                          <h1 className="text-center text-3xl font-semibold">
                               Selamat Datang
@@ -361,7 +361,7 @@ const Register = () => {
                     <div
                          className={`${
                               isMobile ? "hidden" : "w-1/2"
-                         } flex-1 min-h-screen bg-black flex justify-center items-center`}>
+                         } h-screen bg-black flex justify-center items-center`}>
                          <img src={Logo} alt="Logo" className="w-1/2" />
                     </div>
                </div>

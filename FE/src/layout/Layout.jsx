@@ -5,6 +5,8 @@ import Dashboard from "../pages/Dashboard";
 import Team from "../pages/MemberTeam";
 import Administrative from "../pages/Administrative";
 import Competitions from "../pages/Competitions";
+import Admin from "../pages/Admin";
+import Finalis from "../pages/Finalis";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 
@@ -31,6 +33,10 @@ const Layout = () => {
                 return <Administrative />;
             case 'DataCompetitions':
                 return <Competitions />;
+            case 'Admin':
+                return <Admin />;
+            case 'Finalis':
+                return <Finalis />;
             default:
                 return <Dashboard />;
         }

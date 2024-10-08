@@ -109,34 +109,34 @@ const DetailCompetitions = () => {
                 <div className="flex flex-wrap">
                     {competition.title !== "Web Design" &&
                         <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer" onClick={() => { navigate('/web') }}>
-                            <img className="w-[200px] mx-auto py-8" src={Web} alt="Logo" />
-                            <p className="pb-10 text-center px-12 font-semibold text-lg text-black">{competition.ketentuan1}</p>
-                            <p className="">Mahasiswa</p>
-                            <p className="opacity-0">SMA/Sederajat</p>
+                            <img className="w-[200px] mx-auto pt-8 pb-2" src={Web} alt="Logo" />
+                            <p className="text-center px-12 font-semibold text-lg text-black">Web Design</p>
+                            <p className="text-black px-12 ">Mahasiswa</p>
+                            <p className="text-black px-12 opacity-0">SMA/Sederajat</p>
                         </div>
                     }
                     {competition.title !== "UI/UX Design" &&
-                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer" onClick={() => { navigate('/uiux') }}>
-                            <img className="w-[200px] mx-auto py-8" src={Ux} alt="Logo" />
-                            <p className="pb-10 text-center px-12 font-semibold text-lg text-black">{competition.ketentuan2}</p>
-                            <p className="">Mahasiswa</p>
-                            <p className="">SMA/Sederajat</p>
+                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer pb-4" onClick={() => { navigate('/uiux') }}>
+                            <img className="w-[200px] mx-auto pt-8 pb-2" src={Ux} alt="Logo" />
+                            <p className="px-12 font-semibold text-lg text-black">UI/UX</p>
+                            <p className="text-black px-12">Mahasiswa</p>
+                            <p className="text-black px-12">SMA/Sederajat</p>
                         </div>
                     }
                     {competition.title !== "Poster Infografis" &&
-                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer" onClick={() => { navigate('/poster') }}>
-                            <img className="w-[200px] mx-auto py-8" src={Poster} alt="Logo" />
-                            <p className="pb-10 text-center px-12 font-semibold text-lg text-black">{competition.ketentuan3}</p>
-                            <p className="">SMA/Sederajat</p>
-                            <p className="opacity-0">Mahasiswa</p>
+                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer pb-4" onClick={() => { navigate('/poster') }}>
+                            <img className="w-[200px] mx-auto pt-8 pb-2" src={Poster} alt="Logo" />
+                            <p className="px-12 font-semibold text-lg text-black">POSTER INFOGRAFIS</p>
+                            <p className="text-black px-12 ">SMA/Sederajat</p>
+                            <p className="text-black px-12 opacity-0">Mahasiswa</p>
                         </div>
                     }
                     {competition.title !== "Business Plan" &&
-                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer" onClick={() => { navigate('/business') }}>
-                            <img className="w-[200px] mx-auto py-8" src={BusinessPlan} alt="Logo" />
-                            <p className="pb-10 text-center px-12 font-semibold text-lg text-black">{competition.ketentuan3}</p>
-                            <p className="">Mahasiswa</p>
-                            <p className="opacity-0">SMA/Sederajat</p>
+                        <div className="w-[300px] mx-auto bg-[#EFEFEF] mt-24 cursor-pointer pb-4" onClick={() => { navigate('/business') }}>
+                            <img className="w-[200px] mx-auto pt-8 pb-2" src={BusinessPlan} alt="Logo" />
+                            <p className="px-12 font-semibold text-lg text-black">BUSINESS PLAN</p>
+                            <p className="text-black px-12 ">Mahasiswa</p>
+                            <p className="text-black px-12 opacity-0">SMA/Sederajat</p>
                         </div>
                     }
                 </div>
