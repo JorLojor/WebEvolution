@@ -22,45 +22,51 @@ const Login = () => {
 
      const handleLogin = async () => {
           if (email === "" || password === "") {
-               setError("Email dan Password harus diisi.");
-               return;
+              setError("Email dan Password harus diisi.");
+              return;
           }
-
+      
           if (!validateEmail(email)) {
-               setError("Format Email Tidak Valid!");
-               return;
+              setError("Format Email Tidak Valid!");
+              return;
           }
-
+      
           setIsLoading(true);
           try {
-               const response = await fetch(
-                    `{${import.meta.env.VITE_DB_API_URL}api/register/login}`,
-                    {
-                         method: "POST",
-                         headers: {
-                              "Content-Type": "application/json",
-                         },
-                         body: JSON.stringify({ email, password }),
-                    }
-               );
-
-               const data = await response.json();
-
-               if (response.status === 200 || (email === "admin@admin.com" && password === "admin123")) {
-                    dispatch(login({ token: data.data ? data.data : email , password }));
-                    alert("Login berhasil!");
-                    navigate("/dashboard");
-               } else {
-                    setError(data.message || "Email atau Password salah.");
-               }
+              const response = await fetch(
+                  `${import.meta.env.VITE_DB_API_URL}api/register/login`,
+                  {
+                      method: "POST",
+                      headers: {
+                          "Content-Type": "application/json",
+                      },
+                      body: JSON.stringify({ email, password }),
+                  }
+              );
+              console.log(response);
+              
+              // Check if the response is okay and if it contains JSON
+              if (!response.ok) {
+                  throw new Error("Login failed. Please check your credentials.");
+              }
+      
+              const data = await response.json();
+      
+              if (response.status === 200 || (email === "admin@admin.com" && password === "admin123")) {
+                  dispatch(login({ token: data.data ? data.data : email, password }));
+                  alert("Login berhasil!");
+                  navigate("/dashboard");
+              } else {
+                  setError(data.message || "Email atau Password salah.");
+              }
           } catch (error) {
-               console.error(error);
-               setError("Terjadi kesalahan saat login.");
+              console.error("Login error:", error);
+              setError("Terjadi kesalahan saat login.");
           } finally {
-               setIsLoading(false); 
+              setIsLoading(false);
           }
-     };
-
+      };
+      
      const closeModal = () => {
           setError("");
      };
