@@ -34,7 +34,7 @@ const Login = () => {
           setIsLoading(true);
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/register/login",
+                    `{${import.meta.env.VITE_DB_API_URL}api/register/login}`,
                     {
                          method: "POST",
                          headers: {

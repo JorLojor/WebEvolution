@@ -31,7 +31,7 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
         try {
             setIsLoading(true);
             const response = await fetch(
-                "http://localhost:3987/api/register/single",
+                `${import.meta.env.VITE_DB_API_URL}api/register/single`,
                 {
                     method: "GET",
                     headers: {

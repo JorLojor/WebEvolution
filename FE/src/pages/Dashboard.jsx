@@ -9,9 +9,9 @@ import Timeline from "../components/Timeline";
 
 const Dashboard = () => {
     const [data, setData] = useState('web design');
+    const ambilUser = useSelector((state) => state.user);
     const [registerData, setRegisterData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const ambilUser = useSelector((state) => state.user);
     const tokenne = ambilUser.user?.token;
 
     const getRegister = async () => {
@@ -23,7 +23,7 @@ const Dashboard = () => {
         try {
             setLoading(true);
             const response = await fetch(
-                "http://localhost:3987/api/register/single",
+                `${import.meta.env.VITE_DB_API_URL}api/register/single`,
                 {
                     method: "GET",
                     headers: {

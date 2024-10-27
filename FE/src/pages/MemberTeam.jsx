@@ -35,7 +35,7 @@ const MemberTeam = () => {
           try {
                setLoading(true);
                const response = await fetch(
-                    "http://localhost:3987/api/register/single",
+                    `${import.meta.env.VITE_DB_API_URL}api/register/single`,
                     {
                          method: "GET",
                          headers: {
@@ -69,7 +69,7 @@ const MemberTeam = () => {
           try {
                setLoading(true);
                const response = await fetch(
-                    "http://localhost:3987/api/team/getByID",
+                    `${import.meta.env.VITE_DB_API_URL}api/team/getByID`,
                     {
                          method: "GET",
                          headers: {
@@ -113,7 +113,7 @@ const MemberTeam = () => {
 
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/team/add/member",
+                    `${import.meta.env.VITE_DB_API_URL}api/team/add/member`,
                     {
                          method: "PUT",
                          headers: {

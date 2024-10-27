@@ -27,7 +27,7 @@ const Administrative = () => {
 
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/administrative/cek-administrasi",
+                    `${import.meta.env.VITE_DB_API_URL}api/administrative/cek-administrasi`,
                     {
                          method: "GET",
                          headers: {
@@ -81,7 +81,7 @@ const Administrative = () => {
 
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/administrative/upload/document",
+                    `${import.meta.env.VITE_DB_API_URL}api/administrative/upload/document`,
                     {
                          method: "POST",
                          headers: {

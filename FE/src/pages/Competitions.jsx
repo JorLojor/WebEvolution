@@ -28,7 +28,7 @@ const CompetitionUpload = () => {
 
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/competitions/check",
+                    `${import.meta.env.VITE_DB_API_URL}api/competitions/check`,
                     {
                          method: "GET",
                          headers: {
@@ -84,7 +84,7 @@ const CompetitionUpload = () => {
 
           try {
                const response = await fetch(
-                    "http://localhost:3987/api/competitions/upload",
+                    `${import.meta.env.VITE_DB_API_URL}api/competitions/upload`,
                     {
                          method: "POST",
                          headers: {
