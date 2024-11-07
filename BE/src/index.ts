@@ -11,7 +11,7 @@ const app = express();
 const port = 3987;
 
 const corsOptions = {
-     origin: "https://evolutiontelkomuniversity.com",
+     origin: ["https://evolutiontelkomuniversity.com", "http://localhost:5173"],
      optionsSuccessStatus: 200,
 };
 

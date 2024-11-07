@@ -56,8 +56,6 @@ const Navbar = ({ type }) => {
                             <p className="py-2 cursor-pointer" onClick={() => handleNavigateOrScroll('about', '/')}>About</p>
                             <p className="py-2 cursor-pointer" onClick={() => handleNavigateOrScroll('competitions', '/')}>Competitions</p>
                             <p className="py-2 cursor-pointer" onClick={() => handleNavigateOrScroll('talkshow', '/')}>Talkshow</p>
-                            <p className="py-2 cursor-pointer" onClick={() => handleNavigateOrScroll('terms', '/')}>Terms</p>
-                            <p className="py-2 cursor-pointer" onClick={() => handleNavigateOrScroll('faq', '/')}>FAQ</p>
                             {isLogin ? (
                                 <div className="flex flex-col">
                                     <p className="py-2 text-center md:text-left hover:cursor-pointer mx-auto" onClick={() => navigate('/dashboard')}>Dashboard</p>

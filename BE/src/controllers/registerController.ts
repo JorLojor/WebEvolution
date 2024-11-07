@@ -145,40 +145,46 @@ export const createRegisterController = async (req: Request, res: Response) => {
           }
 
           const result = await createRegister(newRegister);
-          if (result === 201) {
-               const subject = "Selamat! Anda Telah Teregisterasi Tahap 1";
-               const text = `
-              Halo ${Nama}, \n\n
-              Selamat! Anda telah berhasil menyelesaikan tahap pertama registrasi Lomba IT. Kami sangat senang menyambut antusiasme Anda dalam kompetisi ini.\n\n
-              Untuk melanjutkan ke tahap kedua registrasi, silakan klik link berikut yang telah kami tentukan:\n
-              [Link ke Registrasi Tahap 2]\n\n
-              Semoga sukses dalam perjalanan Anda mengikuti lomba ini. Jangan lewatkan informasi selanjutnya yang akan kami kirimkan kepada Anda. Terima kasih telah berpartisipasi dan kami berharap yang terbaik untuk Anda!\n\n
-              Salam hangat,\n
-              Panitia Lomba IT
-            `;
+    if (result === 201) {
+      const subject = "Selamat! Anda Telah Teregisterasi Tahap 1";
+      const htmlContent = `
+        <div style="font-family: Arial, sans-serif; color: #333;">
+          <h2 style="color: #4CAF50;">Halo ${Nama},</h2>
+          <p>Selamat! Anda telah berhasil menyelesaikan tahap pertama registrasi Lomba Evolution.</p>
+          <p>Semoga sukses dalam perjalanan Anda mengikuti lomba ini. Terima kasih telah berpartisipasi!</p>
+          <p style="font-style: italic; margin-top: 20px;">Salam Hangat,<br>Panitia Evolution Competition</p>
+          <div style="text-align: center; margin-top: 20px;">
+            <a href="https://evolutiontelkomuniversity.com" style="display: inline-block; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; font-weight: bold;">Kunjungi Website Kami</a>
+          </div>
+        </div>
+      `;
 
-               // Send email confirmation via sendMessage
-               await sendMessage.sendEmail(Email, subject, text, res);
-               res.status(201).json({
-                    code: 201,
-                    message: "Register created successfully",
-               });
-          } else {
-               res.status(400).json({
-                    code: 400,
-                    message: "Register failed to create",
-               });
-          }
-     } catch (error) {
-          console.error(
-               error,
-               "\n   backend error broo bagian register controller"
-          );
-          res.status(500).json({
-               code: 500,
-               message: "backend error broo bagian register controller",
-          });
-     }
+      // Try to send the email and handle any errors
+      try {
+        await sendMessage.sendEmail(Email, subject, "", htmlContent);
+        res.status(201).json({
+          code: 201,
+          message: "Register created successfully",
+        });
+      } catch (error) {
+        res.status(500).json({
+          code: 500,
+          message: "Register created, but failed to send email",
+        });
+      }
+    } else {
+      res.status(400).json({
+        code: 400,
+        message: "Register failed to create",
+      });
+    }
+  } catch (error) {
+    console.error(error, "\n   backend error broo bagian register controller");
+    res.status(500).json({
+      code: 500,
+      message: "backend error broo bagian register controller",
+    });
+  }
 };
 
 export const getSingleRegisterController = async (
@@ -206,7 +212,6 @@ export const getSingleRegisterController = async (
           const singleRegister = await getSingleRegister(
                Number(RegistrationID)
           );
-          console.log(singleRegister);
           if (singleRegister) {
                res.json(singleRegister);
           } else {

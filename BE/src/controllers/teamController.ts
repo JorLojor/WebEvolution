@@ -39,8 +39,7 @@ export const addMemberTeamController = async (req: Request, res: Response) => {
                return res.status(400).json({ message: "bad request" });
           }
 
-          const { Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3 } =
-               req.body;
+          const { Nama_Anggota2, NIM_Anggota2, Nama_Anggota3, NIM_Anggota3 } = req.body;               
 
           if (
                !Nama_Anggota2 ||

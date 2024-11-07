@@ -109,6 +109,7 @@ const Administrative = () => {
                console.error("Error during document upload:", error);
                alert("Terjadi kesalahan saat mengunggah dokumen.");
           } finally {
+               checkRegistrationStatus();
                setIsLoading(false);
           }
      };
@@ -122,17 +123,16 @@ const Administrative = () => {
 
                     {isLoading ? (
                          <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
-                              Memeriksa status registrasi...
+                              Loading...
                          </div>
                     ) : isRegistered ? (
                          <div className="alert alert-success text-white bg-[#222725] p-4 rounded-md">
-                              Anda sudah terdaftar. Anda tidak bisa mengunggah
+                              Anda sudah Mengumpulkan. Anda tidak bisa mengunggah
                               dokumen lagi. Jika ada kendala harap hubungi panitia melalui contact person
                          </div>
                     ) : (
                          <div className="alert alert-warning text-white bg-[#222725] p-4 rounded-md">
-                              Anda belum terdaftar. Silakan unggah dokumen Anda
-                              di bawah ini.
+                              Silakan unggah dokumen Anda di bawah ini.
                          </div>
                     )}
 
@@ -200,7 +200,7 @@ const Administrative = () => {
                               className={` ${isRegistered ? 'hidden' : 'block'} btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4`}
                               disabled={isRegistered} 
                          >
-                              Upload
+                              {isLoading ? 'Loading...' : 'Upload'}
                          </button>
                     </form>
 

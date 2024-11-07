@@ -39,30 +39,38 @@ function App() {
           {/* Lomba */}
           <h1 id="competitions" className="text-center text-white pt-48 pb-12 text-4xl font-bold">Jenis Lomba</h1>
           <div className="flex-wrap flex items-center justify-center md:justify-between text-black">
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/business') }}>
-              <img className="w-[100%] mx-auto" src={BusinessPlan} alt="Logo Lomba" />
-              <p className="pt-4 text-2xl font-semibold">Business Plan</p>
-              <p className="">Mahasiswa</p>
-              <p className="opacity-0">SMA/Sederajat</p>
-            </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/uiux') }}>
-              <img className="w-[100%] mx-auto" src={Ux} alt="Logo Lomba" />
-              <p className="pt-4 text-2xl font-semibold">UI/UX</p>
-              <p className="">Mahasiswa</p>
-              <p className="">SMA/Sederajat</p>
-            </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/web') }}>
-              <img className="w-[100%] mx-auto" src={Web} alt="Logo Lomba" />
-              <p className="pt-4 text-2xl font-semibold">Web Design</p>
-              <p className="">Mahasiswa</p>
-              <p className="opacity-0">SMA/Sederajat</p>
-            </div>
-            <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" onClick={() => { navigate('/poster') }}>
-              <img className="w-[100%] mx-auto" src={Poster} alt="Logo Lomba" />
-              <p className="pt-4 text-2xl font-semibold">Poster Infografis</p>
-              <p className="">SMA/Sederajat</p>
-              <p className="opacity-0">Mahasiswa</p>
-            </div>
+            <a href="/business/#title">
+              <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer" >
+                <img className="w-[100%] mx-auto" src={BusinessPlan} alt="Logo Lomba" />
+                <p className="pt-4 text-2xl font-semibold">Business Plan</p>
+                <p className="">Mahasiswa</p>
+                <p className="opacity-0">SMA/Sederajat</p>
+              </div>
+            </a>
+            <a href="/uiux/#title">
+              <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer">
+                <img className="w-[100%] mx-auto" src={Ux} alt="Logo Lomba" />
+                <p className="pt-4 text-2xl font-semibold">UI/UX</p>
+                <p className="">Mahasiswa</p>
+                <p className="">SMA/Sederajat</p>
+              </div>
+            </a>
+            <a href="/web/#title">
+              <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer">
+                <img className="w-[100%] mx-auto" src={Web} alt="Logo Lomba" />
+                <p className="pt-4 text-2xl font-semibold">Web Design</p>
+                <p className="">Mahasiswa</p>
+                <p className="opacity-0">SMA/Sederajat</p>
+              </div>
+            </a>
+            <a href="/poster/#title">
+              <div className="w-[250px] mx-0 sm:mx-4 my-4 bg-[#E7E7E7] p-6 cursor-pointer">
+                <img className="w-[100%] mx-auto" src={Poster} alt="Logo Lomba" />
+                <p className="pt-4 text-2xl font-semibold">Poster Infografis</p>
+                <p className="">SMA/Sederajat</p>
+                <p className="opacity-0">Mahasiswa</p>
+              </div>
+            </a>
           </div>
           {/* Footer */}
           <div className="pt-24">

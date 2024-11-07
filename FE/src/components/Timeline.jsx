@@ -15,20 +15,20 @@ const Timeline = ({type}) => {
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Registration</h3>
                                 <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>28 September </p>
                                 <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>-</p>
-                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>18 October 2024</p>
+                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>2 November 2024</p>
                             </div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto ">
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Submission</h3>
-                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>19 October</p>
+                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>17 October</p>
                                 <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>-</p>
-                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>25 October 2024</p>
+                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>9 November 2024</p>
                             </div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto ">
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Final</h3>
                                 <h3>Presentation</h3>
-                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>5 November 2024</p>
+                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>16 November 2024</p>
                             </div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
                         </div>
@@ -52,21 +52,21 @@ const Timeline = ({type}) => {
                             <div className="text-center py-0 w-full h-[200px] mx-auto ">
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Late</h3>
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Registration</h3>
-                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>19 October</p>
+                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>3 November</p>
                                 <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>-</p>
-                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>25 October 2024</p>
+                                <p className={`${type === 1 ? 'text-base' :'text-xl'}`}>9 November 2024</p>
                             </div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto ">
-                                <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Finalis</h3>
+                                <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Finalist</h3>
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Announcement</h3>
-                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>1 November 2024</p>
+                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>13 November 2024</p>
                             </div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto "></div>
                             <div className="text-center py-0 w-full h-[200px] mx-auto ">
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Winner</h3>
                                 <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Announcement</h3>
-                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>7 November 2024</p>
+                                <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>18 November 2024</p>
                             </div>
                         </div>
                     </div>
@@ -84,19 +84,19 @@ const Timeline = ({type}) => {
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Late</h3>
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Registration</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>19 October - 25 October 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>3 november - 9 November 2024</p>
                         </div>
                         <div className="w-[14%] text-center "></div>
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Finalis</h3>
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Announcement</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>1 November 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>13 November 2024</p>
                         </div>
                         <div className="w-[14%] text-center "></div>
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Winner</h3>
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Announcement</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>7 November 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>18 November 2024</p>
                         </div>
                     </div>
                     <div className="w-full flex border-b-4 border-white">
@@ -113,20 +113,20 @@ const Timeline = ({type}) => {
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Normal</h3>
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Registration</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>28 September - 18 October 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>28 September - 2 November 2024</p>
 
                         </div>
                         <div className="w-[14%] text-center "></div>
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Submission</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>19 October - 25 October 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>17 October - 9 November 2024</p>
 
                         </div>
                         <div className="w-[14%] text-center "></div>
                         <div className="w-[14%] text-center ">
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Final</h3>
                             <h3 className={`${type === 1 ? 'text-lg' : 'text-2xl' } font-bold`}>Presentation</h3>
-                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>5 November 2024</p>
+                            <p className={`${type === 1 ? 'text-base' : 'text-xl'} pt-2`}>16 November 2024</p>
 
                         </div>
                         <div className="w-[14%] text-center "></div>

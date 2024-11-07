@@ -57,7 +57,7 @@ const Dashboard = () => {
     useEffect(() => {
         const targetDate = new Date();
          
-        targetDate.setDate(registerData?.Status_Registrasi === 0 || registerData?.Status_Registrasi === 1 || registerData?.Status_Registrasi === 2 ? 25 : registerData?.Status_Registrasi === 3 ? 29 : 29); 
+        targetDate.setDate(registerData?.Status_Registrasi === 0 || registerData?.Status_Registrasi === 1 || registerData?.Status_Registrasi === 2 ? 10 : registerData?.Status_Registrasi === 3 ? 10 : 10); 
         targetDate.setHours(0, 0, 0, 0);  
 
         const updateCountdown = () => {
@@ -109,11 +109,11 @@ const Dashboard = () => {
                             </div>
                             <div className="flex flex-wrap gap-4 justify-between mt-4 text-white">
                                 <div className="bg-[#222725] rounded-lg p-6 flex-1 min-w-[200px] max-w-[300px]">
-                                    <img className="mx-auto" src={registerData?.Pilihan_Lomba === 'web design' ? Web : registerData?.Pilihan_Lomba === 'poster infografis' ? Poster : registerData?.Pilihan_Lomba === 'uiux' ? Ux : registerData?.Pilihan_Lomba === 'bisnis plan' ? BusinessPlan : BusinessPlan} alt="" />
+                                    <img className="mx-auto" src={registerData?.Pilihan_Lomba === 'Web Design' ? Web : registerData?.Pilihan_Lomba === 'Poster Infografis' ? Poster : registerData?.Pilihan_Lomba === 'UI/UX' ? Ux : registerData?.Pilihan_Lomba === 'Business Plan' ? BusinessPlan : BusinessPlan} alt="" />
                                     <h2 className="text-center font-semibold text-xl">
-                                        {registerData?.Pilihan_Lomba === 'web design' ? 'Web Competition' : registerData?.Pilihan_Lomba === 'poster infografis' ? 'Poster Competition' : registerData?.Pilihan_Lomba === 'uiux' ? 'UI/UX Competition' : registerData?.Pilihan_Lomba === 'bisnis plan' ? 'Business Plan Competition' : 'Business Plan Competition'}
+                                        {registerData?.Pilihan_Lomba === 'Web Design' ? 'Web Competition' : registerData?.Pilihan_Lomba === 'Poster Infografis' ? 'Poster Competition' : registerData?.Pilihan_Lomba === 'UI/UX' ? 'UI/UX Competition' : registerData?.Pilihan_Lomba === 'Business Plan' ? 'Business Plan Competition' : 'Business Plan Competition'}
                                     </h2>
-                                    <h2 className="text-center text-lg">Telkom University</h2>
+                                    <h2 className="text-center text-lg">{registerData?.Nama_Instansi}</h2>
                                 </div>
                                 <div className="bg-[#222725] rounded-lg p-6 flex-1 min-w-[500px] max-w-full">
                                     <h2 className="text-center font-semibold text-xl">Timeline</h2>

@@ -59,6 +59,8 @@ const MemberTeam = () => {
                setLoading(false);
           }
      };
+     console.log(teamData);
+     
 
      const handGetTeamById = async () => {
           if (!tokenne) {
@@ -83,12 +85,12 @@ const MemberTeam = () => {
                if (response.ok) {
                     dispatch(setTeamData(result));
                     setFormData({
-                         Nama_Anggota1: result.Nama_Anggota1 || "",
-                         NIM_Anggota1: result.NIM_Anggota1 || "",
+                         Nama_Anggota1: "",
+                         NIM_Anggota1: "",
                          Nama_Anggota2: result.Nama_Anggota2 || "",
                          NIM_Anggota2: result.NIM_Anggota2 || "",
-                         Nama_Anggota3: "",
-                         NIM_Anggota3: "",
+                         Nama_Anggota3: result.Nama_Anggota3 || "",
+                         NIM_Anggota3: result.NIM_Anggota3 || "",
                     });
                } else {
                     console.error("Error fetching team data:", result.message);
@@ -110,6 +112,13 @@ const MemberTeam = () => {
                console.error("Token tidak tersedia, silakan login kembali.");
                return;
           }
+          let formSend = formData;
+          formSend.Nama_Anggota1 = registerData.Nama;
+          formSend.NIM_Anggota1 = registerData.Nomor_Induk_Mahasiswa;
+          if(formData.Nama_Anggota3 === ""){
+               formSend.Nama_Anggota3 = "-"
+               formSend.NIM_Anggota3 = "0"
+          }          
 
           try {
                const response = await fetch(
@@ -120,14 +129,15 @@ const MemberTeam = () => {
                               "Content-Type": "application/json",
                               Authorization: `Bearer ${tokenne}`,
                          },
-                         body: JSON.stringify(formData),
+                         body: JSON.stringify(formSend),
                     }
                );
 
-               const result = await response.json();
-
+               const result = await response.json();               
                if (response.ok) {
                     alert("Anggota tim berhasil ditambahkan.");
+                    handGetTeamById();
+                    getRegister();
                } else {
                     console.error("Error adding team members:", result.message);
                     alert("Gagal menambahkan anggota tim: " + result.message);
@@ -147,13 +157,13 @@ const MemberTeam = () => {
           <Fragment>
                <h1 className="text-white bg-[#222725] p-4 rounded-lg">Identitas Tim</h1>
 
-               <div className="bg-[#222725] mt-8 p-4 rounded-md">
+               <div className="bg-[#222725] mt-8 p-4 rounded-md pb-20">
                     {loading ? (
                          <p className="text-white">Loading register data...</p>
                     ) : registerData ? (
                          <>
-                              <div className="form-group flex items-center">
-                                   <p className="text-white w-1/5 text-sm">Nama Tim</p>
+                              <div className="form-group md:flex items-center">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">Nama Tim</p>
                                    <input
                                         type="text"
                                         value={registerData.Nama_Team || "Tidak tersedia"}
@@ -161,8 +171,8 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">Nama Ketua</p>
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">Nama Ketua</p>
                                    <input
                                         type="text"
                                         value={registerData.Nama || "Tidak tersedia"}
@@ -170,8 +180,17 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">Nim Ketua</p>
+                                   <input
+                                        type="text"
+                                        value={registerData.Nomor_Induk_Mahasiswa || "Tidak tersedia"}
+                                        className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                                        disabled
+                                   />
+                              </div>
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">
                                         Email
                                    </p>
                                    <input
@@ -184,8 +203,8 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">
                                         Nomor Telepon
                                    </p>
                                    <input
@@ -198,8 +217,8 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">
                                         Instansi
                                    </p>
                                    <input
@@ -212,8 +231,8 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">
                                         Provinsi
                                    </p>
                                    <input
@@ -226,8 +245,8 @@ const MemberTeam = () => {
                                         disabled
                                    />
                               </div>
-                              <div className="form-group flex items-center mt-3">
-                                   <p className="text-white w-1/5 text-sm">
+                              <div className="form-group md:flex items-center mt-3">
+                                   <p className="text-white w-2/5 md:w-1/5 text-sm">
                                         Kabupaten
                                    </p>
                                    <input
@@ -239,83 +258,67 @@ const MemberTeam = () => {
                                         className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
                                         disabled
                                    />
-                              </div>
-                         </>
+                              </div>                         </>
                     ) : (
                          <p className="text-white">Tidak ada data registrasi.</p>
                     )}
 
                     {/* Form for adding team members */}
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">Nama Anggota 1</p>
-                         <input
-                              type="text"
-                              name="Nama_Anggota1"
-                              value={teamData?.Nama_Anggota1}
-                              onChange={handleChange}
-                              className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                              disabled={!!teamData?.Nama_Anggota1} 
-                         />
-                    </div>
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">NIM Anggota 1</p>
-                         <input
-                              type="number"
-                              name="NIM_Anggota1"
-                              value={teamData?.NIM_Anggota1}
-                              onChange={handleChange}
-                              className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                              disabled={!!teamData?.NIM_Anggota1} 
-                         />
-                    </div>
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">Nama Anggota 2</p>
+                    <div className="form-group md:flex items-center mt-3">
+                         <p className="text-white w-2/5 md:w-1/5 text-sm">Nama Anggota 1</p>
                          <input
                               type="text"
                               name="Nama_Anggota2"
-                              value={teamData?.Nama_Anggota2}
+                              value={formData.Nama_Anggota2}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                              disabled={!!teamData?.Nama_Anggota2} 
+                              disabled={teamData?.Nama_Anggota2 && teamData?.NIM_Anggota2 || !teamData?.Nama_Anggota2 == "" && !teamData?.NIM_Anggota2 == ""}
                          />
                     </div>
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">NIM Anggota 2</p>
+                    <div className="form-group md:flex items-center mt-3">
+                         <p className="text-white w-2/5 md:w-1/5 text-sm">NIM Anggota 1</p>
                          <input
                               type="number"
                               name="NIM_Anggota2"
-                              value={teamData?.NIM_Anggota2}
+                              value={formData.NIM_Anggota2}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
-                              disabled={!!teamData?.NIM_Anggota2} // Disable if teamData exists
+                              disabled={teamData?.Nama_Anggota2 && teamData?.NIM_Anggota2 || !teamData?.Nama_Anggota2 == "" && !teamData?.NIM_Anggota2 == ""}
                          />
                     </div>
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">Nama Anggota 3</p>
+                    {/* Optional fields for Anggota 2 and Anggota 3 */}
+                    <div className="form-group md:flex items-center mt-3">
+                         <p className="text-white w-2/5 md:w-1/5 text-sm">Nama Anggota 2</p>
                          <input
                               type="text"
                               name="Nama_Anggota3"
-                              value={teamData?.Nama_Anggota3}
+                              value={formData.Nama_Anggota3}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={teamData?.Nama_Anggota2 && teamData?.NIM_Anggota2 || !teamData?.Nama_Anggota2 == "" && !teamData?.NIM_Anggota2 == ""}
                          />
                     </div>
-                    <div className="form-group flex items-center mt-3">
-                         <p className="text-white w-1/5 text-sm">NIM Anggota 3</p>
+                    <div className="form-group md:flex items-center mt-3">
+                         <p className="text-white w-2/5 md:w-1/5 text-sm">NIM Anggota 2</p>
                          <input
-                              type="number"
+                              type={teamData?.NIM_Anggota3 == 0 ? 'text' : 'number'}
                               name="NIM_Anggota3"
-                              value={teamData?.NIM_Anggota3}
+                              value={teamData?.NIM_Anggota3 == 0 ? '-' : formData.NIM_Anggota3}
                               onChange={handleChange}
                               className="form-control text-sm bg-[#E4E6C3] p-2 w-full rounded-sm"
+                              disabled={teamData?.Nama_Anggota2 && teamData?.NIM_Anggota2 || !teamData?.Nama_Anggota2 == "" && !teamData?.NIM_Anggota2 == ""}
                          />
                     </div>
-                    <button
-                         className={`btn btn-primary mt-3 bg-[#E4E6C3] p-4 rounded-lg ${teamData?.NIM_Anggota1 ? 'hidden' : 'block'}`}
-                         onClick={handlerAddMember}
-                    >
-                         Add Member
-                    </button>
+                    {/* Button with condition on Anggota 1 fields */}
+                    <div className="w-full bg-black">
+                         <button
+                              className={`btn btn-primary mt-3 bg-[#E4E6C3] p-4 rounded-lg absolute right-12 ${formData.Nama_Anggota2 && formData.NIM_Anggota2 ? 'bg-[#E4E6C3] text-black' : 'bg-[#323232] text-white'}`}
+                              disabled={!formData.Nama_Anggota2 || !formData.NIM_Anggota2}
+                              onClick={handlerAddMember}
+                         >
+                              Add Member
+                         </button>
+                    </div>
                </div>
           </Fragment>
      );

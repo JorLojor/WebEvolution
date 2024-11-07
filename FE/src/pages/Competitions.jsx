@@ -36,7 +36,7 @@ const CompetitionUpload = () => {
                          },
                     }
                );
-               
+
                const result = await response.json();
                console.log(result);
 
@@ -113,6 +113,7 @@ const CompetitionUpload = () => {
                console.error("Error during document upload:", error);
                alert("Terjadi kesalahan saat mengunggah dokumen.");
           } finally {
+               checkRegistrationStatus();
                setIsLoading(false);
           }
      };
@@ -124,7 +125,7 @@ const CompetitionUpload = () => {
                          Upload Dokumen Kompetisi
                     </h1>
 
-                    {isLoading  ? (
+                    {isLoading ? (
                          <div className="alert alert-info text-white bg-[#222725] p-4 rounded-md">
                               Memeriksa status registrasi...
                          </div>
@@ -197,7 +198,7 @@ const CompetitionUpload = () => {
                               type="submit"
                               className={`${isVerified ? 'hidden' : 'block'} btn btn-primary w-100 bg-[#E4E6C3] p-2 rounded-md px-4`}
                               disabled={isVerified}>
-                              Upload
+                              {isLoading ? 'Loading...' : 'Upload'}
                          </button>
                     </form>
 

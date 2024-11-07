@@ -41,7 +41,6 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
             );
 
             const result = await response.json();
-            console.log(result);
 
             if (response.ok) {
                 setRegisterData(result);
@@ -86,9 +85,7 @@ const Sidebar = ({ currentPage, setCurrentPage }) => {
 
     const toggleDataDropdown = () => {
         setDataDropdownOpen(!dataDropdownOpen);
-    };
-    console.log(registerData);
-    
+    };    
 
     return (
         <motion.div
